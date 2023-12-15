@@ -4,9 +4,24 @@ This repo is being created as part of a diploma theses at FEE, CTU Prague.
 
 ...
 
+## Requirements
+
+ - Python >= 3.10
+
+ - git-lfs
+
 ## Setup Instructions
 
-...
+Clone this repository:
+
+    git lfs clone https://github.com/jirkoada/czech-bench.git
+
+Setup Python environment:
+
+    cd czech-bench
+    virtualenv venv
+    venv/bin/activate
+    pip install -r requirements.txt
 
 ## Usage
 

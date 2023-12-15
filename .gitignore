@@ -2,4 +2,4 @@ venv/
 .env/
 *.scrap/
 *__pycache__/
-*/annotations.json
+*annotations.json
