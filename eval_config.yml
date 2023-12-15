@@ -1,0 +1,28 @@
+
+## Evaluation settings ##
+#########################
+
+# Name of the model to be evaluated, corresponding to the name of the python file containing model definition (without extension)
+model_name: gpt3
+
+# Benchmark selection:
+benchmarks:
+
+- name: sqad
+  use: true
+  local: true  # true: load from Hugging Face cloud or cache, false: load from local files
+
+- name: squad
+  use: true
+  local: true
+
+- name: anli
+  use: true
+  local: true  
+
+- name: czech_news
+  use: true
+  local: true 
+
+# Limit the number of used examples for each benchmark (debugging purposes)
+stop_idx: 1  # Set to null for no limit

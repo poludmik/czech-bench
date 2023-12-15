@@ -1,0 +1,51 @@
+
+
+*** SQAD ***
+Commencing SQAD evaluation at 15:22:25, 15/12/2023
+
+Results:
+Exact Match: 0.0
+BoW F1: 33.333333333333336
+Lemmas Exact Match: 0.0
+Lemmas BoW F1: 33.333333333333336
+Roots Exact Match: 0.0
+Roots BoW F1: 33.333333333333336
+Total valid examples used: 1
+
+
+*** SQUAD ***
+Commencing SQUAD evaluation at 15:23:05, 15/12/2023
+
+Results:
+Exact Match: 0.0
+BoW F1: 0.0
+Lemmas Exact Match: 0.0
+Lemmas BoW F1: 0.0
+Roots Exact Match: 0.0
+Roots BoW F1: 0.0
+Total valid examples used: 1
+Unparseable answers: 0
+
+
+*** ANLI ***
+Commencing ANLI evaluation at 15:23:11, 15/12/2023
+
+Results:
+Accuracy: 0.0
+F1: 0.0
+Total valid examples used: 1
+Unparseable answers: 0
+
+
+*** Czech News ***
+Commencing Czech News evaluation at 15:23:15, 15/12/2023
+
+Results:
+Accuracy: 0.0
+F1: 0.0
+Total valid examples used: 1
+Unparseable answers: 0
+
+
+Evaluation finished at 15:23:19, 15/12/2023
+

@@ -1,0 +1,79 @@
+from datasets import load_dataset, load_from_disk
+from .prompts import PROMPT_SELECTOR
+import evaluate
+import json
+import os
+import numpy as np
+from datetime import datetime
+
+local_dir = os.path.dirname(os.path.abspath(__file__))
+home_dir = os.path.dirname(os.path.dirname(local_dir))
+
+
+class Evaluator:
+    def __init__(self, local=False):
+        print("\nInitializing ANLI evaluator")
+        if local:
+            self.load_local()
+        else:
+            self.load_hf()
+
+    def load_hf(self):
+        print("Loading dataset from Hugging Face")
+        self.dataset = load_dataset("ctu-aic/anli_cs", split="test")
+        #self.dataset.save_to_disk(local_dir + "/data/test")
+
+    def load_local(self):
+        print("Loading dataset locally")
+        self.dataset = load_from_disk(local_dir + "/data/test")
+    
+    def run_eval(self, llm, result_file, stop_idx=np.inf):
+        info = f'\nCommencing ANLI evaluation at {datetime.now().strftime("%H:%M:%S, %d/%m/%Y")}'
+        print(info)
+        with open (result_file, "a") as rf:
+            rf.write("\n\n*** ANLI ***" + info + "\n")
+
+        prompt = PROMPT_SELECTOR.get_prompt(llm)
+
+        labels = []
+        predictions = []
+        parse_fails = 0
+        count = 0
+
+        for i, example in enumerate(self.dataset):
+            if i+1 > stop_idx:
+                break
+            print(f"\rExample {i+1} / {len(self.dataset)}", end="")
+            context = example["evidence"]
+            claim = example["claim"]
+            label = example["label"]
+            result = llm(prompt.format_prompt(context=context, claim=claim).to_messages())
+            try:
+                prediction = int(result.content)
+                labels.append(label)
+                predictions.append(prediction)
+            except:
+                parse_fails += 1
+                continue
+            count += 1
+
+        with open(local_dir + "/annotations.json", "w") as out:
+            json.dump({"parse_fails" : parse_fails, "labels" : labels, "predictions": predictions}, out)
+            
+        print("\nComputing metrics")
+
+        lines = "\nResults:\n"
+        metric = evaluate.load("accuracy")
+        res = metric.compute(predictions=predictions, references=labels)
+        lines += f"Accuracy: {res['accuracy']}\n"
+
+        metric = evaluate.load("f1")
+        res_f1 = metric.compute(predictions=predictions, references=labels, average='weighted')
+        lines += f"F1: {res_f1['f1']}\n"
+        
+        lines += f"Total valid examples used: {count}\n"
+        lines += f"Unparseable answers: {parse_fails}\n"
+
+        with open(result_file, "a") as rf:
+            rf.write(lines)
+        print(lines)
