@@ -18,7 +18,7 @@ from ufal.morphodita import Morpho, TaggedLemmas
 
 class Evaluator:
     def __init__(self, local=False):
-        print("\nInitializing SQUAD evaluator")
+        print("\nInitializing SQuAD evaluator")
         if local:
             self.load_local()
         else:
@@ -64,10 +64,10 @@ class Evaluator:
         return lemmas, roots
     
     def run_eval(self, llm, result_file, stop_idx=np.inf):
-        info = f'\nCommencing SQUAD evaluation at {datetime.now().strftime("%H:%M:%S, %d/%m/%Y")}'
+        info = f'\nCommencing SQuAD evaluation at {datetime.now().strftime("%H:%M:%S, %d/%m/%Y")}'
         print(info)
         with open (result_file, "a") as rf:
-            rf.write("\n\n*** SQUAD ***" + info + "\n")
+            rf.write("\n\n*** SQuAD ***" + info + "\n")
 
         prompt = PROMPT_SELECTOR.get_prompt(llm)
 
@@ -91,6 +91,8 @@ class Evaluator:
                 a_dict = json.loads(result.content)
                 a_text = a_dict["answer"]
                 a_prob = a_dict["no_answer_prob"]
+                try1 = a_text.lower().rstrip('\r\n').split()
+                try2 = a_prob - 1
             except:
                 parse_fails += 1
                 continue
