@@ -10,7 +10,7 @@ benchmarks:
 
 - name: sqad
   use: true
-  local: true  # true: load from Hugging Face cloud or cache, false: load from local files
+  local: true  # true: load from local files, false: load from Hugging Face cloud or cache
 
 - name: squad
   use: true
