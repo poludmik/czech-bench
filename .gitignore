@@ -3,3 +3,4 @@ venv/
 *.scrap/
 *__pycache__/
 *annotations.json
+*.log

@@ -14,7 +14,7 @@ This repo is being created as part of a diploma theses at FEE, CTU Prague.
 
 Clone this repository:
 
-    git lfs clone https://github.com/jirkoada/czech-bench.git
+    git lfs clone https://gitlab.com/jirkoada/czech-bench.git
 
 Setup Python environment:
 
@@ -25,7 +25,11 @@ Setup Python environment:
 
 ## Usage
 
-...
+Inspect contents of eval_config.yml and make desired changes. Create additional config files if needed.
+
+Then run the evaluation:
+
+    python3 run_evaluation.py [-c path_to_custom_config.yml]
 
 ## References
 [1]  Sabol and Medved’ and Horák, [Czech Question Answering with Extended SQAD v3.0 Benchmark Dataset](https://nlp.fi.muni.cz/raslan/2019/paper14-medved.pdf), 2019
