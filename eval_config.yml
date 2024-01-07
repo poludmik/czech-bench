@@ -18,11 +18,11 @@ benchmarks:
 
 - name: anli
   use: true
-  local: true  
+  local: true
 
 - name: czech_news  # huge number of test samples makes it expensive to evaluate
   use: false
   local: true 
 
 # Limit the number of used examples for each benchmark (debugging purposes)
-stop_idx: 1  # Set to null for no limit
+stop_idx: 5  # Set to null for no limit

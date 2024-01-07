@@ -1,5 +1,5 @@
 from datasets import load_dataset, load_from_disk
-from .prompts import PROMPT_SELECTOR
+from .prompts import PROMPT_SELECTOR, PROMPT
 import evaluate
 import json
 import sys
@@ -68,7 +68,7 @@ class Evaluator:
         with open (result_file, "a") as rf:
             rf.write("\n\n*** SQAD ***" + info + "\n")
 
-        prompt = PROMPT_SELECTOR.get_prompt(llm)
+        prompt = PROMPT #_SELECTOR.get_prompt(llm)
 
         references = []
         predictions = []
@@ -84,14 +84,18 @@ class Evaluator:
             print(f"\rExample {i+1} / {len(self.dataset)}", end="")
             context = example["context"]
             question = example["question"]
-            result = llm(prompt.format_prompt(context=context, question=question).to_messages())
+            result = llm(prompt.format_prompt(context=context, question=question).text)
+            try:
+                result = result.content
+            except:
+                pass
             id = example["item_id"]
             ref = {
                 "answers": {"text": example["answers"], "answer_start": [d["start"] for d in example["occurrences"]]},
                 "id": id
             }
             ans = {
-                "prediction_text": result.content,
+                "prediction_text": result,
                 "id": id
             }
             references.append(ref)
@@ -110,7 +114,7 @@ class Evaluator:
                 ref_root_dict = dict(ref)
                 ref_root_dict["answers"]["text"] = ans_roots
 
-                lems, roots = self.morpho_analyze(result.content)
+                lems, roots = self.morpho_analyze(result)
                 pred_lem_dict = dict(ans)
                 pred_lem_dict["prediction_text"] = lems
                 pred_root_dict = dict(ans)

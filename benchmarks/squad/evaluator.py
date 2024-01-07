@@ -1,5 +1,5 @@
 #from datasets import load_dataset
-from .prompts import PROMPT_SELECTOR
+from .prompts import PROMPT_SELECTOR, PROMPT
 from .squad_v2 import SquadV2
 import evaluate
 import json
@@ -69,7 +69,7 @@ class Evaluator:
         with open (result_file, "a") as rf:
             rf.write("\n\n*** SQuAD ***" + info + "\n")
 
-        prompt = PROMPT_SELECTOR.get_prompt(llm)
+        prompt = PROMPT #_SELECTOR.get_prompt(llm)
 
         references = []
         predictions = []
@@ -86,9 +86,13 @@ class Evaluator:
             print(f"\rExample {i+1} / {len(self.dataset)}", end="")
             context = example["context"]
             question = example["question"]
-            result = llm(prompt.format_prompt(context=context, question=question).to_messages())
+            result = llm(prompt.format_prompt(context=context, question=question).text)
             try:
-                a_dict = json.loads(result.content)
+                result = result.content
+            except:
+                pass
+            try:
+                a_dict = json.loads(result)
                 a_text = a_dict["answer"]
                 a_prob = a_dict["no_answer_prob"]
                 try1 = a_text.lower().rstrip('\r\n').split()

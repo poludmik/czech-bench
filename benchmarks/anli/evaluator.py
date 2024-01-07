@@ -1,5 +1,5 @@
 from datasets import load_dataset, load_from_disk
-from .prompts import PROMPT_SELECTOR
+from .prompts import PROMPT_SELECTOR, PROMPT
 import evaluate
 import json
 import os
@@ -33,7 +33,7 @@ class Evaluator:
         with open (result_file, "a") as rf:
             rf.write("\n\n*** ANLI ***" + info + "\n")
 
-        prompt = PROMPT_SELECTOR.get_prompt(llm)
+        prompt = PROMPT #_SELECTOR.get_prompt(llm)
 
         labels = []
         predictions = []
@@ -47,9 +47,13 @@ class Evaluator:
             context = example["evidence"]
             claim = example["claim"]
             label = example["label"]
-            result = llm(prompt.format_prompt(context=context, claim=claim).to_messages())
+            result = llm(prompt.format_prompt(context=context, claim=claim).text)
             try:
-                prediction = int(result.content)
+                result = result.content
+            except:
+                pass
+            try:
+                prediction = int(result)
                 labels.append(label)
                 predictions.append(prediction)
             except:

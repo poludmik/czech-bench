@@ -1,5 +1,5 @@
 from datasets import load_dataset, load_from_disk
-from .prompts import PROMPT_SELECTOR
+from .prompts import PROMPT_SELECTOR, PROMPT
 import evaluate
 import json
 import os
@@ -33,7 +33,7 @@ class Evaluator:
         with open (result_file, "a") as rf:
             rf.write("\n\n*** Czech News ***" + info + "\n")
 
-        prompt = PROMPT_SELECTOR.get_prompt(llm)
+        prompt = PROMPT #_SELECTOR.get_prompt(llm)
 
         labels = []
         predictions = []
@@ -49,9 +49,13 @@ class Evaluator:
             label = example["category"]
             if label == 0:  # Ignore examples with label 0 ("None")
                 continue
-            result = llm(prompt.format_prompt(brief=brief).to_messages())
+            result = llm(prompt.format_prompt(brief=brief).text)
             try:
-                prediction = int(result.content)
+                result = result.content
+            except:
+                pass
+            try:
+                prediction = int(result)
                 labels.append(label)
                 predictions.append(prediction)
             except:
