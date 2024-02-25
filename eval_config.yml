@@ -3,7 +3,7 @@
 #########################
 
 # Name of the model to be evaluated, corresponding to the name of the python file containing model definition (without extension)
-model_name: llama2hf
+model_name: gpt3
 
 # Benchmark selection:
 benchmarks:
@@ -17,7 +17,7 @@ benchmarks:
   local: true
 
 - name: anli
-  use: true
+  use: false
   local: true
 
 - name: czech_news  # huge number of test samples makes it expensive to evaluate
@@ -25,4 +25,4 @@ benchmarks:
   local: true 
 
 # Limit the number of used examples for each benchmark (debugging purposes)
-stop_idx: 5  # Set to null for no limit
+stop_idx: 2  # Set to null for no limit

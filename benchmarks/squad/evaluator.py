@@ -10,9 +10,9 @@ from datetime import datetime
 
 local_dir = os.path.dirname(os.path.abspath(__file__))
 home_dir = os.path.dirname(os.path.dirname(local_dir))
-sys.path.append(home_dir + "/tools/morphology/derinet/tools/data-api/derinet2")
-import derinet.lexicon as dlex
-from ufal.morphodita import Morpho, TaggedLemmas
+sys.path.append(home_dir + "/tools/morphology")
+from lemmatization import MorphoDiTa
+from word_roots import DeriNet
 
 
 
@@ -25,15 +25,15 @@ class Evaluator:
             self.load_hf()
         
         print("Loading morphological tools")
-        self.lemmatizer = Morpho.load(home_dir + "/tools/morphology/czech-morfflex/czech-morfflex2.0-220710.dict")
+        self.lemmatizer = MorphoDiTa()
+        if not self.lemmatizer.lemmatizer:
+            self.lemmatizer = False
         self.root_lexicon = None
         if not self.lemmatizer:
             print("Failed to load lemmatizer model, morphological analysis will be skipped")
         else:
             try:
-                lexicon = dlex.Lexicon()
-                lexicon.load(home_dir + "/tools/morphology/derinet/data/releases/cs/derinet-2-0.tsv")
-                self.root_lexicon = lexicon
+                self.root_lexicon = DeriNet()
             except:
                 print("Failed to load root lexicon, root extraction will be skipped")
 
@@ -46,21 +46,14 @@ class Evaluator:
         self.dataset = list(SquadV2()._generate_examples(local_dir + "/data/dev-v2.0.json"))
     
     def morpho_analyze(self, answer):
-        lem_store = TaggedLemmas()
         tokens = [tok.rstrip(",.?!") for tok in answer.lower().rstrip('\r\n').split()]
         lemmas = ""
         roots = ""
         for token in tokens:
-            res = self.lemmatizer.analyze(token, self.lemmatizer.GUESSER, lem_store)
-            lemmas += lem_store[0].lemma + " "
-            
+            lemma = self.lemmatizer.lemmatize(token)
+            lemmas += lemma + " "      
             if self.root_lexicon is not None:
-                lexemes = self.root_lexicon.get_lexemes(lem_store[0].lemma)
-                if len(lexemes) > 0:
-                    root = lexemes[0].get_tree_root()
-                else:
-                    root = lem_store[0]
-                roots += root.lemma + " "
+                roots += self.root_lexicon.get_root(lemma) + " "
         return lemmas, roots
     
     def run_eval(self, llm, result_file, stop_idx=np.inf):
@@ -69,7 +62,7 @@ class Evaluator:
         with open (result_file, "a") as rf:
             rf.write("\n\n*** SQuAD ***" + info + "\n")
 
-        prompt = PROMPT #_SELECTOR.get_prompt(llm)
+        prompt = PROMPT_SELECTOR.get_prompt(llm)
 
         references = []
         predictions = []
@@ -86,7 +79,7 @@ class Evaluator:
             print(f"\rExample {i+1} / {len(self.dataset)}", end="")
             context = example["context"]
             question = example["question"]
-            result = llm(prompt.format_prompt(context=context, question=question).text)
+            result = llm(prompt.format_prompt(context=context, question=question).to_messages())
             try:
                 result = result.content
             except:
