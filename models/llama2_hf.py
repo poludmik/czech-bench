@@ -74,6 +74,6 @@ def create_llama_pipeline(model_id='meta-llama/Llama-2-7b-chat-hf', temperature=
     return HuggingFacePipeline(pipeline=generate_text)
 
 
-def get_llm():
-    llm = create_llama_pipeline()
+def get_llm(model_id='meta-llama/Llama-2-7b-chat-hf', temperature=0.1):
+    llm = create_llama_pipeline(model_id=model_id, temperature=temperature)
     return llm

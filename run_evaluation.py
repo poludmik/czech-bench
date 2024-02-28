@@ -6,6 +6,7 @@ from types import SimpleNamespace
 import logging
 import traceback
 import numpy as np
+import json
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-c", "--config_file", default="eval_config.yml", help="Path to custom config file")
@@ -23,17 +24,23 @@ if __name__ == "__main__":
         except yaml.YAMLError:
             print(traceback.format_exc())
             raise Exception("Config file could not be parsed")
+    if not hasattr(cfg, 'model_parameters'):
+        cfg.model_parameters = {}
     
     # Create LLM
     try:
         exec(f'from models.{cfg.model_name} import get_llm')
-        llm = get_llm()
+        llm = get_llm(**cfg.model_parameters)
     except Exception:
         print(traceback.format_exc())
         raise Exception("Model could not be imported")
 
     # Run benchmarks  
     result_file = os.path.abspath(f'./results/{cfg.model_name}_{datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}.txt')
+    with open(result_file, "a") as rf:
+        rf.write(f"Model: {cfg.model_name}\n")
+        rf.write(f"Model parameters: \n")
+        rf.write(json.dumps(cfg.model_parameters, indent=4, sort_keys=True))
 
     for bench in cfg.benchmarks:
         try:
