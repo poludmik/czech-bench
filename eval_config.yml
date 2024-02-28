@@ -3,7 +3,10 @@
 #########################
 
 # Name of the model to be evaluated, corresponding to the name of the python file containing model definition (without extension)
-model_name: gpt3
+model_name: llama2hf
+
+# 
+#model_parameters: {model: gpt-3.5-turbo-1106, temperature: 0}
 
 # Benchmark selection:
 benchmarks:
@@ -13,7 +16,7 @@ benchmarks:
   local: true  # true: load from local files, false: load from Hugging Face cloud or cache
 
 - name: squad
-  use: true
+  use: false
   local: true
 
 - name: anli
@@ -25,4 +28,4 @@ benchmarks:
   local: true 
 
 # Limit the number of used examples for each benchmark (debugging purposes)
-stop_idx: 2  # Set to null for no limit
+stop_idx: null  # Set to null for no limit

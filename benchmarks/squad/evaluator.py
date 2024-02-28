@@ -1,5 +1,6 @@
 #from datasets import load_dataset
-from .prompts import PROMPT_SELECTOR, PROMPT
+from langchain.chains.prompt_selector import is_chat_model
+from langchain_core.output_parsers.string import StrOutputParser
 from .squad_v2 import SquadV2
 import evaluate
 import json
@@ -7,6 +8,7 @@ import sys
 import os
 import numpy as np
 from datetime import datetime
+from .prompts import PROMPT_SELECTOR
 
 local_dir = os.path.dirname(os.path.abspath(__file__))
 home_dir = os.path.dirname(os.path.dirname(local_dir))
@@ -63,6 +65,7 @@ class Evaluator:
             rf.write("\n\n*** SQuAD ***" + info + "\n")
 
         prompt = PROMPT_SELECTOR.get_prompt(llm)
+        str_parser = StrOutputParser()
 
         references = []
         predictions = []
@@ -79,11 +82,13 @@ class Evaluator:
             print(f"\rExample {i+1} / {len(self.dataset)}", end="")
             context = example["context"]
             question = example["question"]
-            result = llm(prompt.format_prompt(context=context, question=question).to_messages())
-            try:
-                result = result.content
-            except:
-                pass
+
+            if is_chat_model(llm):
+                result = llm.invoke(prompt.format_prompt(context=context, question=question).to_messages())
+            else:
+                result = llm.invoke(prompt.format_prompt(context=context, question=question).text)
+            
+            result = str_parser.invoke(result)
             try:
                 a_dict = json.loads(result)
                 a_text = a_dict["answer"]
@@ -146,20 +151,21 @@ class Evaluator:
         print("\nComputing metrics")
 
         lines = "\nResults:\n"
-        metric = evaluate.load("squad_v2")
-        res = metric.compute(predictions=predictions, references=references)
-        lines += f"Exact Match: {res['exact']}\n"
-        lines += f"BoW F1: {res['f1']}\n"
+        if count > 0:
+            metric = evaluate.load("squad_v2")
+            res = metric.compute(predictions=predictions, references=references)
+            lines += f"Exact Match: {res['exact']}\n"
+            lines += f"BoW F1: {res['f1']}\n"
 
-        if self.lemmatizer:
-            res_lemma = metric.compute(predictions=pred_lemmas, references=ref_lemmas)
-            lines += f"Lemmas Exact Match: {res_lemma['exact']}\n"
-            lines += f"Lemmas BoW F1: {res_lemma['f1']}\n"
+            if self.lemmatizer:
+                res_lemma = metric.compute(predictions=pred_lemmas, references=ref_lemmas)
+                lines += f"Lemmas Exact Match: {res_lemma['exact']}\n"
+                lines += f"Lemmas BoW F1: {res_lemma['f1']}\n"
 
-            if self.root_lexicon is not None:
-                res_root = metric.compute(predictions=pred_roots, references=ref_roots)
-                lines += f"Roots Exact Match: {res_root['exact']}\n"
-                lines += f"Roots BoW F1: {res_root['f1']}\n"
+                if self.root_lexicon is not None:
+                    res_root = metric.compute(predictions=pred_roots, references=ref_roots)
+                    lines += f"Roots Exact Match: {res_root['exact']}\n"
+                    lines += f"Roots BoW F1: {res_root['f1']}\n"
         
         lines += f"Total valid examples used: {count}\n"
         lines += f"Unparseable answers: {parse_fails}\n"

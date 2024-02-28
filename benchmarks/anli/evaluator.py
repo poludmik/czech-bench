@@ -1,10 +1,12 @@
 from datasets import load_dataset, load_from_disk
-from .prompts import PROMPT_SELECTOR, PROMPT
+from langchain.chains.prompt_selector import is_chat_model
+from langchain_core.output_parsers.string import StrOutputParser
 import evaluate
 import json
 import os
 import numpy as np
 from datetime import datetime
+from .prompts import PROMPT_SELECTOR
 
 local_dir = os.path.dirname(os.path.abspath(__file__))
 home_dir = os.path.dirname(os.path.dirname(local_dir))
@@ -33,7 +35,8 @@ class Evaluator:
         with open (result_file, "a") as rf:
             rf.write("\n\n*** ANLI ***" + info + "\n")
 
-        prompt = PROMPT #_SELECTOR.get_prompt(llm)
+        prompt = PROMPT_SELECTOR.get_prompt(llm)
+        str_parser = StrOutputParser()
 
         labels = []
         predictions = []
@@ -47,11 +50,13 @@ class Evaluator:
             context = example["evidence"]
             claim = example["claim"]
             label = example["label"]
-            result = llm(prompt.format_prompt(context=context, claim=claim).text)
-            try:
-                result = result.content
-            except:
-                pass
+
+            if is_chat_model(llm):
+                result = llm.invoke(prompt.format_prompt(context=context, claim=claim).to_messages())
+            else:
+                result = llm.invoke(prompt.format_prompt(context=context, claim=claim).text)
+            
+            result = str_parser.invoke(result)
             try:
                 prediction = int(result)
                 labels.append(label)
@@ -67,13 +72,14 @@ class Evaluator:
         print("\nComputing metrics")
 
         lines = "\nResults:\n"
-        metric = evaluate.load("accuracy")
-        res = metric.compute(predictions=predictions, references=labels)
-        lines += f"Accuracy: {res['accuracy']}\n"
+        if count > 0:
+            metric = evaluate.load("accuracy")
+            res = metric.compute(predictions=predictions, references=labels)
+            lines += f"Accuracy: {res['accuracy']}\n"
 
-        metric = evaluate.load("f1")
-        res_f1 = metric.compute(predictions=predictions, references=labels, average='weighted')
-        lines += f"F1: {res_f1['f1']}\n"
+            metric = evaluate.load("f1")
+            res_f1 = metric.compute(predictions=predictions, references=labels, average='weighted')
+            lines += f"F1: {res_f1['f1']}\n"
         
         lines += f"Total valid examples used: {count}\n"
         lines += f"Unparseable answers: {parse_fails}\n"

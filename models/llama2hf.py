@@ -3,7 +3,7 @@ from torch import cuda, bfloat16
 from transformers import StoppingCriteria, StoppingCriteriaList
 import torch
 import transformers
-from langchain.llms import HuggingFacePipeline
+from langchain_community.llms import HuggingFacePipeline
 
 
 def create_llama_pipeline(model_id='meta-llama/Llama-2-7b-chat-hf', temperature=0.1):
@@ -23,7 +23,7 @@ def create_llama_pipeline(model_id='meta-llama/Llama-2-7b-chat-hf', temperature=
     hf_auth = os.getenv('HF_TOKEN')
     model_config = transformers.AutoConfig.from_pretrained(
         model_id,
-        use_auth_token=hf_auth
+        token=hf_auth
     )
 
     model = transformers.AutoModelForCausalLM.from_pretrained(
@@ -32,7 +32,7 @@ def create_llama_pipeline(model_id='meta-llama/Llama-2-7b-chat-hf', temperature=
         config=model_config,
         quantization_config=bnb_config,
         device_map='auto',
-        use_auth_token=hf_auth
+        token=hf_auth
     )
 
     # enable evaluation mode to allow model inference
@@ -42,7 +42,7 @@ def create_llama_pipeline(model_id='meta-llama/Llama-2-7b-chat-hf', temperature=
     
     tokenizer = transformers.AutoTokenizer.from_pretrained(
         model_id,
-        use_auth_token=hf_auth
+        token=hf_auth
     )
     
     stop_list = ['\nHuman:', '\n```\n']

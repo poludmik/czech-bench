@@ -1,4 +1,4 @@
-from langchain.chat_models import ChatOpenAI
+from langchain_openai import ChatOpenAI
 #from langchain.llms import OpenAI
 
 def get_llm():
