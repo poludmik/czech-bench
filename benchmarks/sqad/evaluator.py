@@ -6,6 +6,7 @@ import json
 import sys
 import os
 import numpy as np
+import time
 from datetime import datetime
 from .prompts import PROMPT_SELECTOR
 
@@ -73,6 +74,7 @@ class Evaluator:
         ref_roots = []
         pred_roots = []
         count = 0
+        cum_time = 0.
 
         for i, example in enumerate(self.dataset):
             if i+1 > stop_idx:
@@ -81,12 +83,18 @@ class Evaluator:
             context = example["context"]
             question = example["question"]
 
-            if is_chat_model(llm):
-                result = llm.invoke(prompt.format_prompt(context=context, question=question).to_messages())
-            else:
-                result = llm.invoke(prompt.format_prompt(context=context, question=question).text)
+            try:
+                start_time = time.time()
+                if is_chat_model(llm):
+                    result = llm.invoke(prompt.format_prompt(context=context, question=question).to_messages())
+                else:
+                    result = llm.invoke(prompt.format_prompt(context=context, question=question).text)
+                result = str_parser.invoke(result)
+                end_time = time.time()
+            except Exception as e:
+                print(f"\nExample skipped due to an LLM Error: {e}")
+                continue
             
-            result = str_parser.invoke(result)
             id = example["item_id"]
             ref = {
                 "answers": {"text": example["answers"], "answer_start": [d["start"] for d in example["occurrences"]]},
@@ -124,16 +132,17 @@ class Evaluator:
                     ref_roots.append(ref_root_dict)
                     pred_roots.append(pred_root_dict)
             count += 1
+            cum_time += end_time - start_time
 
-        with open(local_dir + "/annotations.json", "w") as out:
-            json.dump({
-                "predictions" : predictions, 
-                "references": references,
-                "pred_lemmas" : pred_lemmas, 
-                "ref_lemmas": ref_lemmas,
-                "pred_roots" : pred_roots, 
-                "ref_roots": ref_roots,
-                }, out)
+        # with open(local_dir + "/annotations.json", "w") as out:
+        #     json.dump({
+        #         "predictions" : predictions, 
+        #         "references": references,
+        #         "pred_lemmas" : pred_lemmas, 
+        #         "ref_lemmas": ref_lemmas,
+        #         "pred_roots" : pred_roots, 
+        #         "ref_roots": ref_roots,
+        #         }, out)
             
         print("\nComputing metrics")
 
@@ -141,18 +150,20 @@ class Evaluator:
         if count > 0:
             metric = evaluate.load("squad")
             res = metric.compute(predictions=predictions, references=references)
-            lines += f"Exact Match: {res['exact_match']}\n"
-            lines += f"BoW F1: {res['f1']}\n"
+            lines += f"Exact Match: {res['exact_match']:.2f}\n"
+            lines += f"BoW F1: {res['f1']:.2f}\n"
 
             if self.lemmatizer:
                 res_lemma = metric.compute(predictions=pred_lemmas, references=ref_lemmas)
-                lines += f"Lemmas Exact Match: {res_lemma['exact_match']}\n"
-                lines += f"Lemmas BoW F1: {res_lemma['f1']}\n"
+                lines += f"Lemmas Exact Match: {res_lemma['exact_match']:.2f}\n"
+                lines += f"Lemmas BoW F1: {res_lemma['f1']:.2f}\n"
 
                 if self.root_lexicon is not None:
                     res_root = metric.compute(predictions=pred_roots, references=ref_roots)
-                    lines += f"Roots Exact Match: {res_root['exact_match']}\n"
-                    lines += f"Roots BoW F1: {res_root['f1']}\n"
+                    lines += f"Roots Exact Match: {res_root['exact_match']:.2f}\n"
+                    lines += f"Roots BoW F1: {res_root['f1']:.2f}\n"
+            
+            lines += f"Average inference time: {cum_time/count:.2f}s\n"
 
         lines += f"Total valid examples used: {count}\n"
 

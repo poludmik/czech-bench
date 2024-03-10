@@ -12,10 +12,11 @@ from .prompts import PROMPT_SELECTOR
 local_dir = os.path.dirname(os.path.abspath(__file__))
 home_dir = os.path.dirname(os.path.dirname(local_dir))
 
+BENCHMARK = "CTKFacts"
 
 class Evaluator:
     def __init__(self, local=False):
-        print("\nInitializing ANLI evaluator")
+        print(f"\nInitializing {BENCHMARK} evaluator")
         if local:
             self.load_local()
         else:
@@ -23,7 +24,7 @@ class Evaluator:
 
     def load_hf(self):
         print("Loading dataset from Hugging Face")
-        self.dataset = load_dataset("ctu-aic/anli_cs", split="test")
+        self.dataset = load_dataset("ctu-aic/ctkfacts_nli", split="test")
         #self.dataset.save_to_disk(local_dir + "/data/test")
 
     def load_local(self):
@@ -31,10 +32,10 @@ class Evaluator:
         self.dataset = load_from_disk(local_dir + "/data/test")
     
     def run_eval(self, llm, result_file, stop_idx=np.inf):
-        info = f'\nCommencing ANLI evaluation at {datetime.now().strftime("%H:%M:%S, %d/%m/%Y")}'
+        info = f'\nCommencing {BENCHMARK} evaluation at {datetime.now().strftime("%H:%M:%S, %d/%m/%Y")}'
         print(info)
         with open (result_file, "a") as rf:
-            rf.write("\n\n*** ANLI ***" + info + "\n")
+            rf.write(f"\n\n*** {BENCHMARK} ***" + info + "\n")
 
         prompt = PROMPT_SELECTOR.get_prompt(llm)
         str_parser = StrOutputParser()

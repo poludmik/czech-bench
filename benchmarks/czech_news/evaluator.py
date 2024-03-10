@@ -5,6 +5,7 @@ import evaluate
 import json
 import os
 import numpy as np
+import time
 from datetime import datetime
 from .prompts import PROMPT_SELECTOR
 
@@ -42,6 +43,7 @@ class Evaluator:
         predictions = []
         parse_fails = 0
         count = 0
+        cum_time = 0.
 
         for i, example in enumerate(self.dataset):
             if i+1 > stop_idx:
@@ -52,13 +54,19 @@ class Evaluator:
             label = example["category"]
             if label == 0:  # Ignore examples with label 0 ("None")
                 continue
-
-            if is_chat_model(llm):
-                result = llm.invoke(prompt.format_prompt(brief=brief).to_messages())
-            else:
-                result = llm.invoke(prompt.format_prompt(brief=brief).text)
             
-            result = str_parser.invoke(result)
+            try:
+                start_time = time.time()
+                if is_chat_model(llm):
+                    result = llm.invoke(prompt.format_prompt(brief=brief).to_messages())
+                else:
+                    result = llm.invoke(prompt.format_prompt(brief=brief).text)
+                result = str_parser.invoke(result)
+                end_time = time.time()
+            except Exception as e:
+                print(f"\nExample skipped due to an LLM Error: {e}")
+                continue
+            
             try:
                 prediction = int(result)
                 labels.append(label)
@@ -67,9 +75,10 @@ class Evaluator:
                 parse_fails += 1
                 continue
             count += 1
+            cum_time += end_time - start_time
 
-        with open(local_dir + "/annotations.json", "w") as out:
-            json.dump({"parse_fails" : parse_fails, "labels" : labels, "predictions": predictions}, out)
+        # with open(local_dir + "/annotations.json", "w") as out:
+        #     json.dump({"parse_fails" : parse_fails, "labels" : labels, "predictions": predictions}, out)
             
         print("\nComputing metrics")
 
@@ -77,11 +86,13 @@ class Evaluator:
         if count > 0:
             metric = evaluate.load("accuracy")
             res = metric.compute(predictions=predictions, references=labels)
-            lines += f"Accuracy: {res['accuracy']}\n"
+            lines += f"Accuracy: {res['accuracy']*100:.2f}\n"
 
             metric = evaluate.load("f1")
             res_f1 = metric.compute(predictions=predictions, references=labels, average='weighted')
-            lines += f"F1: {res_f1['f1']}\n"
+            lines += f"F1: {res_f1['f1']*100:.2f}\n"
+
+            lines += f"Average inference time: {cum_time/count:.2f}s\n"
 
         lines += f"Total valid examples used: {count}\n"
         lines += f"Unparseable answers: {parse_fails}\n"

@@ -3,13 +3,14 @@
 #########################
 
 # Name of the model to be evaluated, corresponding to the name of the python file containing model definition (without extension)
-model_name: llama2_hf
+model_name: ollama_raw
 
 # Dictionary with optional parameters to be passed to the get_llm function. Can be ommited.
 #model_parameters: {model_id: gpt-3.5-turbo-1106}  # chat_openai
 #model_parameters: {model_id: gpt-4-1106-preview}  # chat_openai
-#model_parameters: {model_id: meta-llama/Llama-2-7b-chat-hf, temperature: 0.1}  # llama2_hf
-#model_parameters: {temperature: 0.5}
+#model_parameters: {model_id: meta-llama/Llama-2-13b-chat-hf}  # llama2_hf
+#model_parameters: {temperature: 0.5} # any
+model_parameters: {model_id: llama2, url: http://dgx-5:11434, temperature: 0.} # ollama_raw
 
 # Benchmark selection:
 benchmarks:
@@ -23,6 +24,18 @@ benchmarks:
   local: true
 
 - name: anli
+  use: false
+  local: true
+
+- name: snli
+  use: false
+  local: true
+
+- name: ctkfacts
+  use: false
+  local: true
+
+- name: klokanek
   use: true
   local: true
 
@@ -31,4 +44,4 @@ benchmarks:
   local: true 
 
 # Limit the number of used examples for each benchmark (debugging purposes)
-stop_idx: 2  # Set to null for no limit
+stop_idx: null  # Set to null for no limit

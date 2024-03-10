@@ -7,6 +7,7 @@ import json
 import sys
 import os
 import numpy as np
+import time
 from datetime import datetime
 from .prompts import PROMPT_SELECTOR
 
@@ -15,7 +16,6 @@ home_dir = os.path.dirname(os.path.dirname(local_dir))
 sys.path.append(home_dir + "/tools/morphology")
 from lemmatization import MorphoDiTa
 from word_roots import DeriNet
-
 
 
 class Evaluator:
@@ -73,8 +73,11 @@ class Evaluator:
         pred_lemmas = []
         ref_roots = []
         pred_roots = []
+        na_gt = []
+        na_pr = []
         parse_fails = 0
         count = 0
+        cum_time = 0.
 
         for i, example in enumerate(self.dataset):
             if i+1 > stop_idx:
@@ -83,18 +86,27 @@ class Evaluator:
             context = example["context"]
             question = example["question"]
 
-            if is_chat_model(llm):
-                result = llm.invoke(prompt.format_prompt(context=context, question=question).to_messages())
-            else:
-                result = llm.invoke(prompt.format_prompt(context=context, question=question).text)
+            try:
+                start_time = time.time()
+                if is_chat_model(llm):
+                    result = llm.invoke(prompt.format_prompt(context=context, question=question).to_messages())
+                else:
+                    result = llm.invoke(prompt.format_prompt(context=context, question=question).text)
+                result = str_parser.invoke(result)
+                end_time = time.time()
+            except Exception as e:
+                print(f"\nExample skipped due to an LLM Error: {e}")
+                continue
             
-            result = str_parser.invoke(result)
             try:
                 a_dict = json.loads(result)
                 a_text = a_dict["answer"]
                 a_prob = a_dict["no_answer_prob"]
                 try1 = a_text.lower().rstrip('\r\n').split()
                 try2 = a_prob - 1
+                no_answer_gt = 0 if example["answers"]["answer_start"] else 1
+                na_gt.append(no_answer_gt)
+                na_pr.append(a_prob)
             except:
                 parse_fails += 1
                 continue
@@ -135,18 +147,19 @@ class Evaluator:
                 if self.root_lexicon is not None:
                     ref_roots.append(ref_root_dict)
                     pred_roots.append(pred_root_dict)
-            count += 1        
+            count += 1
+            cum_time += end_time - start_time
 
-        with open(local_dir + "/annotations.json", "w") as out:
-            json.dump({
-                "parse_fails": parse_fails,
-                "predictions" : predictions, 
-                "references": references,
-                "pred_lemmas" : pred_lemmas, 
-                "ref_lemmas": ref_lemmas,
-                "pred_roots" : pred_roots, 
-                "ref_roots": ref_roots,
-                }, out)
+        # with open(local_dir + "/annotations.json", "w") as out:
+        #     json.dump({
+        #         "parse_fails": parse_fails,
+        #         "predictions" : predictions, 
+        #         "references": references,
+        #         "pred_lemmas" : pred_lemmas, 
+        #         "ref_lemmas": ref_lemmas,
+        #         "pred_roots" : pred_roots, 
+        #         "ref_roots": ref_roots,
+        #         }, out)
             
         print("\nComputing metrics")
 
@@ -154,18 +167,28 @@ class Evaluator:
         if count > 0:
             metric = evaluate.load("squad_v2")
             res = metric.compute(predictions=predictions, references=references)
-            lines += f"Exact Match: {res['exact']}\n"
-            lines += f"BoW F1: {res['f1']}\n"
+            lines += f"Exact Match: {res['exact']:.2f}\n"
+            lines += f"BoW F1: {res['f1']:.2f}\n"
 
             if self.lemmatizer:
                 res_lemma = metric.compute(predictions=pred_lemmas, references=ref_lemmas)
-                lines += f"Lemmas Exact Match: {res_lemma['exact']}\n"
-                lines += f"Lemmas BoW F1: {res_lemma['f1']}\n"
+                lines += f"Lemmas Exact Match: {res_lemma['exact']:.2f}\n"
+                lines += f"Lemmas BoW F1: {res_lemma['f1']:.2f}\n"
 
                 if self.root_lexicon is not None:
                     res_root = metric.compute(predictions=pred_roots, references=ref_roots)
-                    lines += f"Roots Exact Match: {res_root['exact']}\n"
-                    lines += f"Roots BoW F1: {res_root['f1']}\n"
+                    lines += f"Roots Exact Match: {res_root['exact']:.2f}\n"
+                    lines += f"Roots BoW F1: {res_root['f1']:.2f}\n"
+            
+            metric = evaluate.load("accuracy")
+            res_cls = metric.compute(predictions=na_pr, references=na_gt)
+            lines += f"No-Answer-Detection Accuracy: {res_cls['accuracy']*100:.2f}\n"
+
+            metric = evaluate.load("f1")
+            res_cls = metric.compute(predictions=na_pr, references=na_gt, average='weighted')
+            lines += f"No-Answer-Detection F1: {res_cls['f1']*100:.2f}\n"
+
+            lines += f"Average inference time: {cum_time/count:.2f}s\n"
         
         lines += f"Total valid examples used: {count}\n"
         lines += f"Unparseable answers: {parse_fails}\n"
