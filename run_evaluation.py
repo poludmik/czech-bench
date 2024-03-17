@@ -28,6 +28,7 @@ if __name__ == "__main__":
         cfg.model_parameters = {}
     
     # Create LLM
+    print("Initializing")
     try:
         exec(f'from models.{cfg.model_name} import get_llm')
         llm = get_llm(**cfg.model_parameters)

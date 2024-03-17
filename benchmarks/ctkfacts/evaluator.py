@@ -75,9 +75,6 @@ class Evaluator:
                 continue
             count += 1
             cum_time += end_time - start_time
-
-        # with open(local_dir + "/annotations.json", "w") as out:
-        #     json.dump({"parse_fails" : parse_fails, "labels" : labels, "predictions": predictions}, out)
             
         print("\nComputing metrics")
 

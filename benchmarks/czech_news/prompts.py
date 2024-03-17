@@ -9,34 +9,12 @@ from langchain.prompts.chat import (
 
 
 prompt_template = """Pro zadaný text pocházející ze zpravodajského článku urči jeho kategorii z následujícího výběru:
-
-1: Zahraniční
-2: Domácí
-3: Sport
-4: Kultura
-5: Revue
-6: Koktejl
-7: Ekonomika
-8: Krimi
-9: Podnikání
-10: Auto
-11: Věda
-12: Komentáře
-13: Cestování
-14: Finance
-15: Technologie
-16: Bydlení
-17: Koronavirus
-18: Byznys
-19: Rozhovory
-20: Podcasty
-21: Životní styl
-22: Literatura
-23: Vánoce
-24: Výtvarné umění
-25: Kolo
-
-Vždy vracej pouze číslo kategorie bez dalších komentářů.
+1) Zahraniční
+2) Domácí
+3) Sport
+4) Kultura
+5) Ekonomika
+Vždy vracej pouze číslo kategorie bez dalšího komentáře.
 
 Zde je 5 ukázkových příkladů:
 
@@ -56,54 +34,31 @@ Klasifikace:
 2
 
 Text:
-Slovenský prezident Rudolf Schuster po jednání se svým čínským partnerem Ťiang-Ce-minem daroval čínskému prezidentovi valašku, kterou ke zděšení ochranky propašoval do přísně střeženého prezidentského paláce	
-Klasifikace:
-6
-
-Text:
-Moderátorka a spolumajitelka Divadla bez zábradlí Hana Heřmánková spojila příjemné s užitečným a pozvala na jeviště známé herecké a moderátorské tváře, aby představily originální šaty Beaty Rajské, Táni Vokřálové a značky La Halle a Tveret. "Konečně život, to je přesně to, co na molech chybí," komentovala atmosféru módní návrhářka Beata Rajská. Celebrity totiž, nejen že šaty obléky a ukázaly, ale zároveň - díky choreografii - působily velmi přirozeně. Herce a moderátory v rolích modelek a modelů najdete v bohaté fotogalerii
+Tržby maloobchodních organizací vzrostly za celý loňský rok o 2,1 procenta, v samotném prosinci to bylo dokonce o 6,4 procenta. Letošní výhledy jsou podle ekonomů mírně horší, tržby maloobchodu nají podle jejich odhadů vzrůst přibližně o procento. Vliv bude mít nižší růst reálných mezd, které loni dosáhly vysokých 6 procent, na tržbách se podepíše se i vyšší nezaměstnanost	
 Klasifikace:
 5
+
+Text:
+Třináctého ledna odstartuje v pražské Městské knihovně další, již šestá část unikátní filmové přehlídky Projekt 100. Společná akce Asociací českých a slovenských filmových klubů a Městských divadel v Uherském Hradišti se zrodila před čtyřmi lety při příležitosti stého výročí vzniku kinematografie, nyní se s šestou desítkou filmů dostává již do své druhé poloviny
+Klasifikace:
+4
 
 Vygeneruj klasifikaci pro následující příklad:
 Text:
 {brief}
 Klasifikace:
-
 """
 PROMPT = PromptTemplate(
     template=prompt_template, input_variables=["brief"]
 )
 
 system_template = """Pro zadaný text pocházející ze zpravodajského článku urči jeho kategorii z následujícího výběru:
-
-1: Zahraniční
-2: Domácí
-3: Sport
-4: Kultura
-5: Revue
-6: Koktejl
-7: Ekonomika
-8: Krimi
-9: Podnikání
-10: Auto
-11: Věda
-12: Komentáře
-13: Cestování
-14: Finance
-15: Technologie
-16: Bydlení
-17: Koronavirus
-18: Byznys
-19: Rozhovory
-20: Podcasty
-21: Životní styl
-22: Literatura
-23: Vánoce
-24: Výtvarné umění
-25: Kolo
-
-Vždy vracej pouze číslo kategorie bez dalších komentářů.
+1) Zahraniční
+2) Domácí
+3) Sport
+4) Kultura
+5) Ekonomika
+Vždy vracej pouze číslo kategorie bez dalšího komentáře.
 
 Zde je 5 ukázkových příkladů:
 
@@ -123,21 +78,20 @@ Klasifikace:
 2
 
 Text:
-Slovenský prezident Rudolf Schuster po jednání se svým čínským partnerem Ťiang-Ce-minem daroval čínskému prezidentovi valašku, kterou ke zděšení ochranky propašoval do přísně střeženého prezidentského paláce	
-Klasifikace:
-6
-
-Text:
-Moderátorka a spolumajitelka Divadla bez zábradlí Hana Heřmánková spojila příjemné s užitečným a pozvala na jeviště známé herecké a moderátorské tváře, aby představily originální šaty Beaty Rajské, Táni Vokřálové a značky La Halle a Tveret. "Konečně život, to je přesně to, co na molech chybí," komentovala atmosféru módní návrhářka Beata Rajská. Celebrity totiž, nejen že šaty obléky a ukázaly, ale zároveň - díky choreografii - působily velmi přirozeně. Herce a moderátory v rolích modelek a modelů najdete v bohaté fotogalerii
+Tržby maloobchodních organizací vzrostly za celý loňský rok o 2,1 procenta, v samotném prosinci to bylo dokonce o 6,4 procenta. Letošní výhledy jsou podle ekonomů mírně horší, tržby maloobchodu nají podle jejich odhadů vzrůst přibližně o procento. Vliv bude mít nižší růst reálných mezd, které loni dosáhly vysokých 6 procent, na tržbách se podepíše se i vyšší nezaměstnanost	
 Klasifikace:
 5
+
+Text:
+Třináctého ledna odstartuje v pražské Městské knihovně další, již šestá část unikátní filmové přehlídky Projekt 100. Společná akce Asociací českých a slovenských filmových klubů a Městských divadel v Uherském Hradišti se zrodila před čtyřmi lety při příležitosti stého výročí vzniku kinematografie, nyní se s šestou desítkou filmů dostává již do své druhé poloviny
+Klasifikace:
+4
 """
 
 msg_template = """Vygeneruj klasifikaci pro následující příklad:
 Text:
 {brief}
 Klasifikace:
-
 """
 
 messages = [

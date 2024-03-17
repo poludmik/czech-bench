@@ -29,7 +29,14 @@ class Evaluator:
 
     def load_local(self):
         print("Loading dataset locally")
-        self.dataset = load_dataset("parquet", data_files={'train': local_dir + "/data/train/train-00000-of-00001.parquet"}, split="train")
+        dataset = load_dataset("parquet", data_files={'train': local_dir + "/data/train/train-00000-of-00001.parquet"}, split="train")
+        example_idcs = [1, 6, 4, 16, 20]
+        self.dataset = dataset.select(
+            (
+                i for i in range(len(dataset)) 
+                if i not in set(example_idcs)
+            )
+        )
     
     def run_eval(self, llm, result_file, stop_idx=np.inf):
         info = f'\nCommencing {BENCHMARK} evaluation at {datetime.now().strftime("%H:%M:%S, %d/%m/%Y")}'
@@ -67,7 +74,6 @@ class Evaluator:
                     result = llm.invoke(prompt.format_prompt(question=question, optionA=A, optionB=B, optionC=C, optionD=D, optionE=E).text)    
                 result = str_parser.invoke(result)
                 end_time = time.time()
-                print(result)
             except Exception as e:
                 print(f"\nExample skipped due to an LLM Error: {e}")
                 continue

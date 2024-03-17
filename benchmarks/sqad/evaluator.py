@@ -133,16 +133,6 @@ class Evaluator:
                     pred_roots.append(pred_root_dict)
             count += 1
             cum_time += end_time - start_time
-
-        # with open(local_dir + "/annotations.json", "w") as out:
-        #     json.dump({
-        #         "predictions" : predictions, 
-        #         "references": references,
-        #         "pred_lemmas" : pred_lemmas, 
-        #         "ref_lemmas": ref_lemmas,
-        #         "pred_roots" : pred_roots, 
-        #         "ref_roots": ref_roots,
-        #         }, out)
             
         print("\nComputing metrics")
 

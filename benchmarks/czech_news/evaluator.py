@@ -1,4 +1,4 @@
-from datasets import load_dataset, load_from_disk
+from datasets import load_dataset, load_from_disk, Dataset
 from langchain.chains.prompt_selector import is_chat_model
 from langchain_core.output_parsers.string import StrOutputParser
 import evaluate
@@ -7,6 +7,7 @@ import os
 import numpy as np
 import time
 from datetime import datetime
+import pandas as pd
 from .prompts import PROMPT_SELECTOR
 
 local_dir = os.path.dirname(os.path.abspath(__file__))
@@ -21,9 +22,19 @@ class Evaluator:
         else:
             self.load_hf()
 
+    def filter_data(self, data, nc = 200, rs = 42):
+        data = data.filter(lambda example: example["category"] in [1, 2, 3, 4, 7])
+        df = pd.DataFrame(data)
+        g = df.groupby('category')
+        df = g.apply(lambda x: x.sample(nc, random_state=rs).reset_index(drop=True))
+        df['category'].replace(7, 5, inplace=True)
+        data = Dataset.from_pandas(df).shuffle(seed=rs)
+        return data
+
     def load_hf(self):
         print("Loading dataset from Hugging Face")
-        self.dataset = load_dataset("hynky/czech_news_dataset_v2", split="test")
+        data = load_dataset("hynky/czech_news_dataset_v2", split="test")
+        self.dataset = self.filter_data(data)
         #self.dataset.save_to_disk(local_dir + "/data/test")
 
     def load_local(self):
@@ -52,8 +63,6 @@ class Evaluator:
             brief = example["brief"]
             #content = example["content"]
             label = example["category"]
-            if label == 0:  # Ignore examples with label 0 ("None")
-                continue
             
             try:
                 start_time = time.time()
@@ -76,9 +85,6 @@ class Evaluator:
                 continue
             count += 1
             cum_time += end_time - start_time
-
-        # with open(local_dir + "/annotations.json", "w") as out:
-        #     json.dump({"parse_fails" : parse_fails, "labels" : labels, "predictions": predictions}, out)
             
         print("\nComputing metrics")
 
