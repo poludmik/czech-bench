@@ -10,11 +10,10 @@ model_name: ollama_raw
 #model_parameters: {model_id: gpt-4-1106-preview}  # chat_openai
 #model_parameters: {model_id: meta-llama/Llama-2-13b-chat-hf}  # llama2_hf
 #model_parameters: {temperature: 0.5} # any
-model_parameters: {model_id: llama2, url: http://dgx-3:11434, temperature: 0.} # ollama_raw
+model_parameters: {model_id: llama2, url: http://amd-01:11434, temperature: 0.} # ollama_raw
 
 # Benchmark selection:
 benchmarks:
-
 # Core Benchmarks:
 - name: anli
   use: false
@@ -71,6 +70,10 @@ benchmarks:
   local: false
 
 - name: arc_easy_en
+  use: false
+  local: false
+
+- name: mmlu_en
   use: true
   local: false
 

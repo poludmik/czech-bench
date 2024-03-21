@@ -8,7 +8,7 @@ from langchain.prompts.chat import (
 )
 
 
-prompt_template = """Answer the given question by choosing one of the four proposed answers.
+prompt_template = """Answer the given question by choosing one of the proposed answers.
 Always answer only by the letter corresponding to the chosen answer without any further comment.
 
 Here are 5 example questions:
@@ -67,17 +67,13 @@ Answer the following question:
 Question:
 {question}
 Choices:
-A) {optionA}
-B) {optionB}
-C) {optionC}
-D) {optionD}
-Answer:
+{choices}Answer:
 """
 PROMPT = PromptTemplate(
-    template=prompt_template, input_variables=["question", "optionA", "optionB", "optionC", "optionD", "optionE"]
+    template=prompt_template, input_variables=["question", "choices"]
 )
 
-system_template = """Answer the given question by choosing one of the four proposed answers.
+system_template = """Answer the given question by choosing one of the proposed answers.
 Always answer only by the letter corresponding to the chosen answer without any further comment.
 
 Here are 5 example questions:
@@ -137,11 +133,7 @@ msg_template = """Answer the following question:
 Question:
 {question}
 Choices:
-A) {optionA}
-B) {optionB}
-C) {optionC}
-D) {optionD}
-Answer:
+{choices}Answer:
 """
 
 messages = [

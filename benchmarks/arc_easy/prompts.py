@@ -8,7 +8,7 @@ from langchain.prompts.chat import (
 )
 
 
-prompt_template = """Odpověz na zadanou otázku výběrem jedné ze čtyř nabídnutých možností.
+prompt_template = """Odpověz na zadanou otázku výběrem jedné z nabídnutých možností.
 Odpovídej vždy pouze písmenem odpovídajícím zvolené odpovědi bez dašího komentáře.
 
 Zde je 5 ukázkových příkladů:
@@ -67,17 +67,13 @@ Odpověz na následující otázku:
 Otázka:
 {question}
 Možnosti:
-A) {optionA}
-B) {optionB}
-C) {optionC}
-D) {optionD}
-Odpověď:
+{choices}Odpověď:
 """
 PROMPT = PromptTemplate(
-    template=prompt_template, input_variables=["question", "optionA", "optionB", "optionC", "optionD", "optionE"]
+    template=prompt_template, input_variables=["question", "choices"]
 )
 
-system_template = """Odpověz na zadanou otázku výběrem jedné ze čtyř nabídnutých možností.
+system_template = """Odpověz na zadanou otázku výběrem jedné z nabídnutých možností.
 Odpovídej vždy pouze písmenem odpovídajícím zvolené odpovědi bez dašího komentáře.
 
 Zde je 5 ukázkových příkladů:
@@ -137,11 +133,7 @@ msg_template = """Odpověz na následující otázku:
 Otázka:
 {question}
 Možnosti:
-A) {optionA}
-B) {optionB}
-C) {optionC}
-D) {optionD}
-Odpověď:
+{choices}Odpověď:
 """
 
 messages = [

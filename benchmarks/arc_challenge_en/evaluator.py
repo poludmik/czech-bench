@@ -49,18 +49,21 @@ class Evaluator:
             if i+1 > stop_idx:
                 break
             print(f"\rExample {i+1} / {len(self.dataset)}", end="")
-            if len(example["choices"]["text"]) != 4:
+
+            if len(example["choices"]["text"]) != len(example["choices"]["label"]):
                 continue
             question = example["question"]
-            A, B, C, D = example["choices"]["text"][:4]
+            choice_selection = ""
+            for i in range(len(example["choices"]["text"])):
+                choice_selection += f"{example['choices']['label'][i]}) {example['choices']['text'][i]}\n"
             gt = example["answerKey"]
 
             try:
                 start_time = time.time()
                 if is_chat_model(llm):
-                    result = llm.invoke(prompt.format_prompt(question=question, optionA=A, optionB=B, optionC=C, optionD=D).to_messages())
+                    result = llm.invoke(prompt.format_prompt(question=question, choices=choice_selection).to_messages())
                 else:
-                    result = llm.invoke(prompt.format_prompt(question=question, optionA=A, optionB=B, optionC=C, optionD=D).text)    
+                    result = llm.invoke(prompt.format_prompt(question=question, choices=choice_selection).text)    
                 result = str_parser.invoke(result)
                 end_time = time.time()
             except Exception as e:

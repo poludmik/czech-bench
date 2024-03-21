@@ -27,11 +27,8 @@ class CustomOllama(LLM):
         return {"model": self.model}
     
     def invoke(self, prompt: str) -> str:
-        try:
-            return self.ollama.generate(model=self.model, prompt=prompt, raw=True, options=Options(temperature=self.temperature))["response"]
-        except:
-            return "Timeout Error"
-
+        return self.ollama.generate(model=self.model, prompt=prompt, raw=True, options=Options(temperature=self.temperature))["response"]
+    
     def _call(
         self,
         prompt: str,

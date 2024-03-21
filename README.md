@@ -55,3 +55,5 @@ Macková and Straka, [Reading Comprehension in Czech via Machine Translation and
 Rajpurkar et al., [Know What You Don't Know: Unanswerable Questions for SQuAD](https://arxiv.org/abs/1806.03822), 2018
 
 Přibáň and Steinberger, [Czech Dataset for Cross-lingual Subjectivity Classification](https://arxiv.org/abs/2204.13915), 2022
+
+Hendrycks et al., [Measuring Massive Multitask Language Understanding](https://arxiv.org/abs/2009.03300), 2021
