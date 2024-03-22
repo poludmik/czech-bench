@@ -4,6 +4,7 @@
 
 # Name of the model to be evaluated, corresponding to the name of the python file containing model definition (without extension)
 model_name: ollama_raw
+#model_name: chat_openai
 
 # Dictionary with optional parameters to be passed to the get_llm function. Can be ommited.
 #model_parameters: {model_id: gpt-3.5-turbo-1106}  # chat_openai
@@ -16,66 +17,74 @@ model_parameters: {model_id: llama2, url: http://amd-01:11434, temperature: 0.} 
 benchmarks:
 # Core Benchmarks:
 - name: anli
-  use: false
+  use: true
   local: true  # true: load from local files, false: load from Hugging Face cloud or cache
 
 - name: arc_challenge
-  use: false
+  use: true
   local: true
 
 - name: arc_easy
-  use: false
+  use: true
   local: true
 
 - name: ctkfacts
-  use: false
+  use: true
   local: true
 
 - name: mall_reviews
-  use: false
+  use: true
+  local: true
+
+- name: mmlu
+  use: true
   local: true
 
 - name: klokanek
-  use: false
+  use: true
   local: true
 
 - name: sqad
-  use: false
+  use: true
   local: true
 
 - name: squad
-  use: false
+  use: true
   local: true
 
 # Additional Benchmarks:
 - name: czech_news
-  use: false
+  use: true
   local: true 
 
 - name: facebook_comments
-  use: false
+  use: true
   local: true
 
 - name: snli
-  use: false
+  use: true
   local: true
 
 - name: subjectivity
-  use: false
+  use: true
   local: true
 
 # English Benchmarks:
 - name: arc_challenge_en
-  use: false
+  use: true
   local: false
 
 - name: arc_easy_en
-  use: false
+  use: true
   local: false
 
 - name: mmlu_en
   use: true
   local: false
 
-# Limit the number of used examples for each benchmark (debugging purposes)
-stop_idx: null  # Set to null for no limit
+- name: truthfulqa_en
+  use: true
+  local: false
+
+# Limit the number of used examples for each benchmark or subtask (debugging purposes)
+stop_idx: 10  # Set to null for no limit

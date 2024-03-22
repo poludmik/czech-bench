@@ -37,7 +37,8 @@ if __name__ == "__main__":
         raise Exception("Model could not be imported")
 
     # Run benchmarks  
-    result_file = os.path.abspath(f'./results/{cfg.model_name}_{datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}.txt')
+    os.makedirs(f'./results/{cfg.model_name}', exist_ok=True)
+    result_file = os.path.abspath(f'./results/{cfg.model_name}/{datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}.txt')
     with open(result_file, "a") as rf:
         rf.write(f"Model: {cfg.model_name}\n")
         rf.write(f"Model parameters: \n")

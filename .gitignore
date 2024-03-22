@@ -8,3 +8,4 @@ venv/
 *TODO.txt
 results/*
 *.sh
+*cache*

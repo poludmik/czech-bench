@@ -8,13 +8,17 @@ from langchain.prompts.chat import (
 )
 
 
-prompt_template = """Answer the given question by choosing one of the four proposed answers.
-Always answer only by the digit corresponding to the chosen answer without any further comment.
+task = """Answer the given question by choosing one of the four proposed answers.
+Always answer only with the digit corresponding to the chosen answer without any further comment.
 
-Here are 5 example questions:
+"""
+
+few_shot = """Here are 5 example questions:
 
 {shots}
-Answer the following question:
+"""
+
+request = """Answer the following question:
 Question:
 {question}
 Choices:
@@ -24,35 +28,23 @@ Choices:
 4) {options[3]}
 Answer:
 """
+
+input_variables=["shots", "question", "options"]
+input_types={"shots": "str", "question": "str", "options": "List[str]"}
+
+
+prompt_template = task + few_shot + request
 PROMPT = PromptTemplate(
-    template=prompt_template, input_variables=["shots", "question", "options"], input_types={"shots": "str", "question": "str", "options": "List[str]"}
+    template=prompt_template, input_variables=input_variables, input_types=input_types
 )
 
-system_template = """Answer the given question by choosing one of the four proposed answers.
-Always answer only by the digit corresponding to the chosen answer without any further comment.
-
-Here are 5 example questions:
-
-{shots}
-"""
-
-msg_template = """Answer the following question:
-Question:
-{question}
-Choices:
-1) {options[0]}
-2) {options[1]}
-3) {options[2]}
-4) {options[3]}
-Answer:
-"""
-
+system_template = task + few_shot
+msg_template = request
 messages = [
     SystemMessagePromptTemplate.from_template(system_template),
     HumanMessagePromptTemplate.from_template(msg_template),
 ]
 CHAT_PROMPT = ChatPromptTemplate.from_messages(messages)
-
 
 PROMPT_SELECTOR = ConditionalPromptSelector(
     default_prompt=PROMPT, conditionals=[(is_chat_model, CHAT_PROMPT)]
