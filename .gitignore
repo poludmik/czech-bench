@@ -9,3 +9,4 @@ venv/
 results/*
 *.sh
 *cache*
+*cost_estimator.py

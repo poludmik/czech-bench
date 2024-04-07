@@ -26,6 +26,13 @@ class Evaluator:
         print("Loading dataset from Hugging Face")
         self.dataset = load_dataset("ctu-aic/hynky/klokan-qa", split="train")
         #self.dataset.save_to_disk(local_dir + "/data/test")
+        example_idcs = [1, 6, 4, 16, 20]
+        self.dataset = self.dataset.select(
+            (
+                i for i in range(len(self.dataset)) 
+                if i not in set(example_idcs)
+            )
+        )
 
     def load_local(self):
         print("Loading dataset locally")

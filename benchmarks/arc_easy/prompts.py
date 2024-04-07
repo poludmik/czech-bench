@@ -9,7 +9,7 @@ from langchain.prompts.chat import (
 
 
 task = """Odpověz na zadanou otázku výběrem jedné z nabídnutých možností.
-Odpovídej vždy pouze písmenem odpovídajícím zvolené odpovědi bez dašího komentáře.
+Zvolenou odpověď neopakuj. Odpovídej vždy pouze písmenem odpovídajícím zvolené odpovědi bez dašího komentáře.
 
 """
 

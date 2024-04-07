@@ -8,7 +8,8 @@ from langchain.prompts.chat import (
 )
 
 
-task = """Vyřeš zadanou úlohu výběrem jedné z 5 nabídnutých možností. Odpovídej vždy pouze písmenem odpovídajícím zvolené odpovědi.
+task = """Vyřeš zadanou úlohu výběrem jedné z 5 nabídnutých možností.
+Zvolenou odpověď neopakuj. Odpovídej vždy pouze písmenem odpovídajícím zvolené odpovědi bez dašího komentáře.
 
 """
 

@@ -8,8 +8,8 @@ from langchain.prompts.chat import (
 )
 
 
-task = """Answer the given question by choosing one of the four proposed answers.
-Always answer only with the digit corresponding to the chosen answer without any further comment.
+task = """Answer the given question about {topic} by choosing one of the four proposed answers.
+Do not repeat the chosen answer. Always answer only with the digit corresponding to the chosen answer without any further comment.
 
 """
 
@@ -29,8 +29,8 @@ Choices:
 Answer:
 """
 
-input_variables=["shots", "question", "options"]
-input_types={"shots": "str", "question": "str", "options": "List[str]"}
+input_variables=["topic", "shots", "question", "options"]
+input_types={"topic": "str", "shots": "str", "question": "str", "options": "List[str]"}
 
 
 prompt_template = task + few_shot + request

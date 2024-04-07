@@ -31,12 +31,16 @@ Then run the evaluation:
 
 ## References
 
+Baisa, [Byte Level Language Models](https://is.muni.cz/th/139654/fi_d/), 2016
+
 Ullrich, [Dataset for Automated Fact Checking in Czech
 Language](https://dspace.cvut.cz/bitstream/handle/10467/95430/F3-DP-2021-Ullrich-Herbert-Thesis___Ullrich.pdf?sequence=-1&isAllowed=y), 2021
 
 Nie et al., [Adversarial NLI: A New Benchmark for Natural Language Understanding](https://arxiv.org/abs/1910.14599v2), 2020
 
 Clark et al., [Think you have Solved Question Answering? Try ARC, the AI2 Reasoning Challenge](https://arxiv.org/abs/1803.05457), 2018
+
+Bandarkar et al., [The Belebele Benchmark: a Parallel Reading Comprehension Dataset in 122 Language Variants](https://arxiv.org/abs/2308.16884), 2023
 
 Ullrich et al., [CsFEVER and CTKFacts: Acquiring Czech data for fact verification](https://arxiv.org/abs/2201.11115), 2022
 
@@ -45,6 +49,8 @@ Kydlíček et al., [A Dataset and Strong Baselines for Classification of Czech N
 Habernal et al., [Sentiment Analysis in Czech Social Media Using Supervised Machine Learning](https://aclanthology.org/W13-1609/), 2013
 
 Kydlíček, [Klokánek dataset](https://huggingface.co/datasets/hynky/klokan-qa), 2023
+
+Hendrycks et al., [Measuring Massive Multitask Language Understanding](https://arxiv.org/abs/2009.03300), 2021
 
 Bowman et al., [A large annotated corpus for learning natural language inference](https://arxiv.org/abs/1508.05326v1), 2015
 
@@ -56,4 +62,4 @@ Rajpurkar et al., [Know What You Don't Know: Unanswerable Questions for SQuAD](h
 
 Přibáň and Steinberger, [Czech Dataset for Cross-lingual Subjectivity Classification](https://arxiv.org/abs/2204.13915), 2022
 
-Hendrycks et al., [Measuring Massive Multitask Language Understanding](https://arxiv.org/abs/2009.03300), 2021
+Lin et al., [TruthfulQA: Measuring How Models Mimic Human Falsehoods](https://arxiv.org/abs/2109.07958), 2022

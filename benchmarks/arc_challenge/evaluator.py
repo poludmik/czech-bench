@@ -72,7 +72,8 @@ class Evaluator:
             
             if result == gt:
                 correct += 1
-            elif result not in "ABCD":
+            elif len(result) > 1:
+                #print("\n" + result + "\n")
                 parse_fails += 1
                 continue
             count += 1

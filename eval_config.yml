@@ -11,80 +11,103 @@ model_name: ollama_raw
 #model_parameters: {model_id: gpt-4-1106-preview}  # chat_openai
 #model_parameters: {model_id: meta-llama/Llama-2-13b-chat-hf}  # llama2_hf
 #model_parameters: {temperature: 0.5} # any
-model_parameters: {model_id: llama2, url: http://amd-01:11434, temperature: 0.} # ollama_raw
+model_parameters: {model_id: llama2, url: http://amd-02:11434, temperature: 0.} # ollama_raw
 
 # Benchmark selection:
 benchmarks:
 # Core Benchmarks:
+# - name: agree_complete
+#   use: false
+#   local: true
+
+# - name: agree_multi_complete
+#   use: false
+#   local: true
+- name: agree_select
+  use: false
+  local: true
+
 - name: anli
-  use: true
+  use: false
   local: true  # true: load from local files, false: load from Hugging Face cloud or cache
 
 - name: arc_challenge
-  use: true
+  use: false
   local: true
 
 - name: arc_easy
-  use: true
+  use: false
+  local: true
+
+- name: belebele
+  use: false
   local: true
 
 - name: ctkfacts
-  use: true
+  use: false
   local: true
 
 - name: mall_reviews
-  use: true
+  use: false
   local: true
 
 - name: mmlu
-  use: true
+  use: false
   local: true
 
 - name: klokanek
-  use: true
+  use: false
   local: true
 
 - name: sqad
-  use: true
+  use: false
   local: true
 
 - name: squad
-  use: true
+  use: false
+  local: true
+
+- name: truthfulqa
+  use: false
   local: true
 
 # Additional Benchmarks:
 - name: czech_news
-  use: true
+  use: false
   local: true 
 
 - name: facebook_comments
-  use: true
+  use: false
   local: true
 
 - name: snli
-  use: true
+  use: false
   local: true
 
 - name: subjectivity
-  use: true
+  use: false
   local: true
 
 # English Benchmarks:
 - name: arc_challenge_en
-  use: true
+  use: false
   local: false
 
 - name: arc_easy_en
-  use: true
+  use: false
   local: false
 
+- name: belebele_en
+  use: false
+  local: true
+
 - name: mmlu_en
-  use: true
+  use: false
   local: false
 
 - name: truthfulqa_en
-  use: true
+  use: false
   local: false
 
 # Limit the number of used examples for each benchmark or subtask (debugging purposes)
-stop_idx: 10  # Set to null for no limit
+stop_idx: null  # Set to null for no limit

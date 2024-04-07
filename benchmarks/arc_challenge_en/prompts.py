@@ -9,7 +9,7 @@ from langchain.prompts.chat import (
 
 
 task = """Answer the given question by choosing one of the proposed answers.
-Always answer only with the letter corresponding to the chosen answer without any further comment.
+Do not repeat the chosen answer. Always answer only with the letter corresponding to the chosen answer without any further comment.
 
 """
 

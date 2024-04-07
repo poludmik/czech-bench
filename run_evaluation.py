@@ -10,6 +10,7 @@ import json
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-c", "--config_file", default="eval_config.yml", help="Path to custom config file")
+parser.add_argument("-n", "--note", default="", help="Note to add to the results file")
 logging.disable(logging.WARNING)
 
 
@@ -39,10 +40,14 @@ if __name__ == "__main__":
     # Run benchmarks  
     os.makedirs(f'./results/{cfg.model_name}', exist_ok=True)
     result_file = os.path.abspath(f'./results/{cfg.model_name}/{datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}.txt')
+    note = args.note
+    if note == "":
+        note = "Not provided"
     with open(result_file, "a") as rf:
         rf.write(f"Model: {cfg.model_name}\n")
         rf.write(f"Model parameters: \n")
         rf.write(json.dumps(cfg.model_parameters, indent=4, sort_keys=True))
+        rf.write(f"\nNote: {note}")
 
     for bench in cfg.benchmarks:
         try:

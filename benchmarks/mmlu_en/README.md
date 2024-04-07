@@ -2,9 +2,11 @@
 
 The dataset was obtained from [Hugging Face](https://huggingface.co/datasets/cais/mmlu).
 
+The professional_law subtask is exluded from evaluation.
+
 - Language: EN
 - Task: Knowledge Based Question Answering
-- Samples: 14042 (Test set)
+- Samples: 12505 (Test set)
 - Few-shot examples: 5 (From development set for each topic)
 
 ## References
