@@ -84,12 +84,13 @@ class Evaluator:
                             result = llm.invoke(prompt.format_prompt(topic=topic.replace('_', ' '), shots=shots, question=question, options=choices).text)    
                         result = str_parser.invoke(result)
                         end_time = time.time()
+                        res = result.split()[0].strip().strip(")")
                     except Exception as e:
                         print(f"\nExample skipped due to an LLM Error: {e}")
                         continue
                     
                     try:
-                        prediction = int(result)
+                        prediction = int(res)
                     except:
                         parse_fails += 1
                         continue
@@ -122,7 +123,7 @@ class Evaluator:
         if len(all_accuracies) > 0:
             acc = np.mean(all_accuracies)
         lines += f"Total average accuracy: {acc*100:.2f}\n"
-        ines += f"Average inference time: {cum_time/count:.2f}s\n" 
+        lines += f"Average inference time: {cum_time/count:.2f}s\n" 
         lines += f"Total valid examples used: {count}\n"
         lines += f"Unparseable answers: {parse_fails}\n"
 

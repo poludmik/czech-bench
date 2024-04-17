@@ -75,14 +75,15 @@ class Evaluator:
                     result = llm.invoke(prompt.format_prompt(question=question, optionA=A, optionB=B, optionC=C, optionD=D, optionE=E).text)    
                 result = str_parser.invoke(result)
                 end_time = time.time()
+                res = result.split()[0].strip().strip(")")
             except Exception as e:
                 print(f"\nExample skipped due to an LLM Error: {e}")
                 continue
             
-            if result == gt:
+            if res == gt:
                 correct[cat] += 1
                 correct_all += 1
-            elif result not in "ABCDE":
+            elif res not in "ABCDE":
                 parse_fails += 1
                 continue
             total[cat] += 1
