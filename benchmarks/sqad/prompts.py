@@ -8,7 +8,7 @@ from langchain.prompts.chat import (
 )
 
 
-task = """Pro zadaný kontext a s ním souvisejícím otázku vygeneruj správnou odpověď. Pokud je to možné, extrahuj text odpovědi přímo z kontextu bez dalšího komentáře, případně odpověz pouze "ano" nebo "ne".
+task = """Pro zadaný kontext a s ním souvisejícím otázku vygeneruj správnou odpověď. Odpovídej minimálním počtem slov extrahovaných z kontextu bez dalšího komentáře, případně odpověz pouze "ano" nebo "ne".
 
 """
 

@@ -24,26 +24,20 @@ class Evaluator:
 
     def load_hf(self):
         print("Loading dataset from Hugging Face")
-        self.dataset = load_dataset("ctu-aic/hynky/klokan-qa", split="train")
-        #self.dataset.save_to_disk(local_dir + "/data/test")
-        example_idcs = [1, 6, 4, 16, 20]
-        self.dataset = self.dataset.select(
-            (
-                i for i in range(len(self.dataset)) 
-                if i not in set(example_idcs)
-            )
-        )
+        raise NotImplementedError("This benchmark does not support loading from Hugging Face")
+        # dataset = load_dataset("parquet", data_files={'train': local_dir + "/data/train-00000-of-00001.parquet"}, split="train")
+        # example_idcs = [1, 6, 4, 16, 20]
+        # self.dataset = dataset.select(
+        #     (
+        #         i for i in range(len(dataset))
+        #         if i not in set(example_idcs)
+        #     )
+        # )
+        # self.dataset.save_to_disk(local_dir + "/data/test")
 
     def load_local(self):
         print("Loading dataset locally")
-        dataset = load_dataset("parquet", data_files={'train': local_dir + "/data/train/train-00000-of-00001.parquet"}, split="train")
-        example_idcs = [1, 6, 4, 16, 20]
-        self.dataset = dataset.select(
-            (
-                i for i in range(len(dataset)) 
-                if i not in set(example_idcs)
-            )
-        )
+        self.dataset = load_from_disk(local_dir + "/data/train")
     
     def run_eval(self, llm, result_file, stop_idx=np.inf):
         info = f'\nCommencing {BENCHMARK} evaluation at {datetime.now().strftime("%H:%M:%S, %d/%m/%Y")}'
@@ -65,11 +59,11 @@ class Evaluator:
                 break
             print(f"\rExample {i+1} / {len(self.dataset)}", end="")
             question = example["question"]
-            A = example["answers.A"]
-            B = example["answers.B"]
-            C = example["answers.C"]
-            D = example["answers.D"]
-            E = example["answers.E"]
+            A = example["A"]
+            B = example["B"]
+            C = example["C"]
+            D = example["D"]
+            E = example["E"]
             cat = example["category"]
             gt = example["correct_answer"]
 
@@ -101,10 +95,10 @@ class Evaluator:
         if count > 0:
             for i in range(6):
                 if total[i] > 0:
-                    lines += f"Category {i} accuracy: {correct[i]/total[i]*100:.2f}% ({correct[i]}/{total[i]})\n"
+                    lines += f"Category {i} accuracy: {correct[i]/total[i]*100:.2f} ({correct[i]}/{total[i]})\n"
                 else:
                     lines += f"Category {i} accuracy: N/A\n"
-            lines += f"Overall accuracy: {correct_all/count*100:.2f}% ({correct_all}/{count})\n"
+            lines += f"Overall accuracy: {correct_all/count*100:.2f} ({correct_all}/{count})\n"
             lines += f"Average inference time: {cum_time/count:.2f}s\n"
         
         lines += f"Total valid examples used: {count}\n"

@@ -120,7 +120,8 @@ class Evaluator:
         acc = float("nan")
         if len(all_accuracies) > 0:
             acc = np.mean(all_accuracies)
-        lines += f"Total average accuracy: {acc*100:.2f}\n"     
+        lines += f"Total average accuracy: {acc*100:.2f}\n"
+        ines += f"Average inference time: {cum_time/count:.2f}s\n"
         lines += f"Total valid examples used: {count}\n"
         lines += f"Unparseable answers: {parse_fails}\n"
 

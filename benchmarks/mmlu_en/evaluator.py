@@ -26,10 +26,14 @@ class Evaluator:
     def load_hf(self):
         print("Loading dataset from Hugging Face")
         self.dataset = load_dataset("cais/mmlu", 'all')
+        #self.dataset["test"].save_to_disk(local_dir + "/data/test")
+        #self.dataset["dev"].save_to_disk(local_dir + "/data/dev")
 
     def load_local(self):
         print("Loading dataset locally")
-        raise NotImplementedError("Local data not available")
+        test = load_from_disk(local_dir + "/data/test")
+        dev = load_from_disk(local_dir + "/data/dev")
+        self.dataset = {"test": test, "dev": dev}
     
     def run_eval(self, llm, result_file, stop_idx=np.inf):
         info = f'\nCommencing {BENCHMARK} evaluation at {datetime.now().strftime("%H:%M:%S, %d/%m/%Y")}'
@@ -117,7 +121,8 @@ class Evaluator:
         acc = float("nan")
         if len(all_accuracies) > 0:
             acc = np.mean(all_accuracies)
-        lines += f"Total average accuracy: {acc*100:.2f}\n"     
+        lines += f"Total average accuracy: {acc*100:.2f}\n"
+        ines += f"Average inference time: {cum_time/count:.2f}s\n" 
         lines += f"Total valid examples used: {count}\n"
         lines += f"Unparseable answers: {parse_fails}\n"
 

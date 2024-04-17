@@ -29,8 +29,7 @@ class Evaluator:
 
     def load_local(self):
         print("Loading dataset locally")
-        raise NotImplementedError("Local data not available")
-        #self.dataset = load_from_disk(local_dir + "/data/test")
+        self.dataset = load_from_disk(local_dir + "/data/test")
     
     def run_eval(self, llm, result_file, stop_idx=np.inf):
         info = f'\nCommencing {BENCHMARK} evaluation at {datetime.now().strftime("%H:%M:%S, %d/%m/%Y")}'

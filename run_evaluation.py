@@ -7,11 +7,13 @@ import logging
 import traceback
 import numpy as np
 import json
+import warnings
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-c", "--config_file", default="eval_config.yml", help="Path to custom config file")
 parser.add_argument("-n", "--note", default="", help="Note to add to the results file")
 logging.disable(logging.WARNING)
+warnings.filterwarnings("ignore", category=UserWarning)
 
 
 if __name__ == "__main__":

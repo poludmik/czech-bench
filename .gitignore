@@ -10,3 +10,4 @@ results/*
 *.sh
 *cache*
 *cost_estimator.py
+models/data

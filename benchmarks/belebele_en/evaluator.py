@@ -24,19 +24,7 @@ class Evaluator:
 
     def load_hf(self):
         print("Loading dataset from Hugging Face")
-        self.dataset = load_dataset("facebook/belebele", split="eng_Latn")
-        self.dataset.save_to_disk(local_dir + "/data/test")
-        example_idcs = [0, 3, 5, 4, 8]
-        self.dataset = self.dataset.select(
-            (
-                i for i in range(len(self.dataset)) 
-                if i not in set(example_idcs)
-            )
-        )
-
-    def load_local(self):
-        print("Loading dataset locally")
-        dataset = load_from_disk(local_dir + "/data/test")
+        dataset = load_dataset("facebook/belebele", split="eng_Latn")
         example_idcs = [0, 3, 5, 4, 8]
         self.dataset = dataset.select(
             (
@@ -44,6 +32,11 @@ class Evaluator:
                 if i not in set(example_idcs)
             )
         )
+        self.dataset.save_to_disk(local_dir + "/data/test")
+
+    def load_local(self):
+        print("Loading dataset locally")
+        self.dataset = load_from_disk(local_dir + "/data/test")
     
     def run_eval(self, llm, result_file, stop_idx=np.inf):
         info = f'\nCommencing {BENCHMARK} evaluation at {datetime.now().strftime("%H:%M:%S, %d/%m/%Y")}'

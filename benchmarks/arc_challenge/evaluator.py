@@ -63,13 +63,13 @@ class Evaluator:
                 if is_chat_model(llm):
                     result = llm.invoke(prompt.format_prompt(question=question, choices=choice_selection).to_messages())
                 else:
-                    result = llm.invoke(prompt.format_prompt(question=question, choices=choice_selection).text)    
+                    result = llm.invoke(prompt.format_prompt(question=question, choices=choice_selection).text)
                 result = str_parser.invoke(result)
                 end_time = time.time()
             except Exception as e:
                 print(f"\nExample skipped due to an LLM Error: {e}")
                 continue
-            
+
             if result == gt:
                 correct += 1
             elif len(result) > 1:

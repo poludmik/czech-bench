@@ -84,7 +84,7 @@ class Evaluator:
             lines += f"Accuracy: {res['accuracy']*100:.2f}\n"
 
             metric = evaluate.load("f1")
-            res_f1 = metric.compute(predictions=predictions, references=labels, average='weighted')
+            res_f1 = metric.compute(predictions=predictions, references=labels, average='macro')
             lines += f"F1: {res_f1['f1']*100:.2f}\n"
 
             lines += f"Average inference time: {cum_time/count:.2f}s\n"

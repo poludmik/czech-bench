@@ -94,6 +94,8 @@ class Evaluator:
                     result = llm.invoke(prompt.format_prompt(context=context, question=question).text)
                 result = str_parser.invoke(result)
                 end_time = time.time()
+                # print(example["answers"])
+                # print(result)
             except Exception as e:
                 print(f"\nExample skipped due to an LLM Error: {e}")
                 continue
@@ -174,7 +176,7 @@ class Evaluator:
             lines += f"No-Answer-Detection Accuracy: {res_cls['accuracy']*100:.2f}\n"
 
             metric = evaluate.load("f1")
-            res_cls = metric.compute(predictions=na_pr, references=na_gt, average='weighted')
+            res_cls = metric.compute(predictions=na_pr, references=na_gt, average='macro')
             lines += f"No-Answer-Detection F1: {res_cls['f1']*100:.2f}\n"
 
             lines += f"Average inference time: {cum_time/count:.2f}s\n"

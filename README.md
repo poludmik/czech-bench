@@ -27,7 +27,7 @@ Inspect contents of eval_config.yml and make desired changes. Create additional 
 
 Then run the evaluation:
 
-    python3 run_evaluation.py [-c path_to_custom_config.yml]
+    python3 run_evaluation.py [-c path_to_custom_config.yml] [-n "Optional note to be stored in the result file"]
 
 ## References
 
