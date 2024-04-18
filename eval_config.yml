@@ -11,7 +11,7 @@ model_name: seq2seq_hf
 #model_parameters: {model_id: llama2, url: http://amd-02:11434, temperature: 0.} # ollama_raw
 #model_parameters: {model_id: claude-3-sonnet-20240229}
 #model_parameters: {model_id: google/flan-t5-xl} # seq2seq_hf
-model_parameters: {model_id: CohereForAI/aya-101} # seq2seq_hf
+model_parameters: {model_id: CohereForAI/aya-101, precision: half} # seq2seq_hf
 #model_parameters: {model_id: bigscience/mt0-xxl-mt, precision: half, load_in_8bit: true} # seq2seq_hf
 #model_parameters: {model_id: bigscience/bloomz-7b1-mt} # causal_hf
 #model_parameters: {model_id: MBZUAI/bactrian-x-llama-7b-merged} # causal_hf
@@ -23,31 +23,31 @@ model_parameters: {model_id: CohereForAI/aya-101} # seq2seq_hf
 benchmarks:
 # Core Benchmarks:
 - name: agree_select
-  use: true
+  use: false
   local: true
 
 - name: anli
-  use: true
+  use: false
   local: true  # true: load from local files, false: load from Hugging Face cloud or cache
 
 - name: arc_challenge
-  use: true
+  use: false
   local: true
 
 - name: arc_easy
-  use: true
+  use: false
   local: true
 
 - name: belebele
-  use: true
+  use: false
   local: true
 
 - name: ctkfacts
-  use: true
+  use: false
   local: true
 
 - name: mall_reviews
-  use: true
+  use: false
   local: true
 
 - name: mmlu

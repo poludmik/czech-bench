@@ -62,7 +62,11 @@ class Evaluator:
                     result = llm.invoke(prompt.format_prompt(context=context, claim=claim).text)    
                 result = str_parser.invoke(result)
                 end_time = time.time()
-                res = result.split()[0].strip().strip(")")
+                res_split = result.split()
+                if res_split:
+                    res = result.split()[0].strip().strip(")")
+                else:
+                    res = result
             except Exception as e:
                 print(f"\nExample skipped due to an LLM Error: {e}")
                 continue

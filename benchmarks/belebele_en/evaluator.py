@@ -74,7 +74,11 @@ class Evaluator:
                         context=context, question=question, option1=a1, option2=a2, option3=a3, option4=a4).text)    
                 result = str_parser.invoke(result)
                 end_time = time.time()
-                res = result.split()[0].strip().strip(")")
+                res_split = result.split()
+                if res_split:
+                    res = result.split()[0].strip().strip(")")
+                else:
+                    res = result
             except Exception as e:
                 print(f"\nExample skipped due to an LLM Error: {e}")
                 continue
