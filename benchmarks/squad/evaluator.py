@@ -8,6 +8,7 @@ import sys
 import os
 import numpy as np
 import time
+import copy
 from datetime import datetime
 from .prompts import PROMPT_SELECTOR
 
@@ -46,6 +47,9 @@ class Evaluator:
     def load_local(self):      
         print("Loading dataset locally")
         self.dataset = list(SquadV2()._generate_examples(local_dir + "/data/dev-v2.0.json"))
+        #self.dataset = self.dataset[:4000]
+        self.dataset = self.dataset[4000:8000]
+        #self.dataset = self.dataset[8000:]
     
     def morpho_analyze(self, answer):
         tokens = [tok.rstrip(",.?!") for tok in answer.lower().rstrip('\r\n').split()]
@@ -133,15 +137,15 @@ class Evaluator:
                     ans_lemmas.append(lems)
                     ans_roots.append(roots)
 
-                ref_lem_dict = dict(ref)
+                ref_lem_dict = copy.deepcopy(ref)
                 ref_lem_dict["answers"]["text"] = ans_lemmas
-                ref_root_dict = dict(ref)
+                ref_root_dict = copy.deepcopy(ref)
                 ref_root_dict["answers"]["text"] = ans_roots
 
                 lems, roots = self.morpho_analyze(a_text)
-                pred_lem_dict = dict(ans)
+                pred_lem_dict = copy.deepcopy(ans)
                 pred_lem_dict["prediction_text"] = lems
-                pred_root_dict = dict(ans)
+                pred_root_dict = copy.deepcopy(ans)
                 pred_root_dict["prediction_text"] = roots
 
                 ref_lemmas.append(ref_lem_dict)
@@ -151,6 +155,21 @@ class Evaluator:
                     pred_roots.append(pred_root_dict)
             count += 1
             cum_time += end_time - start_time
+
+        progress = {
+            "references": references,
+            "predictions": predictions,
+            "ref_lemmas": ref_lemmas,
+            "pred_lemmas": pred_lemmas,
+            "ref_roots": ref_roots,
+            "pred_roots": pred_roots,
+            "na_gt": na_gt,
+            "na_pr": na_pr,
+            "parse_fails": parse_fails,
+            "count": count,
+            "cum_time": cum_time
+        }
+        json.dump(progress, open(local_dir + "/part2.json", "w"), ensure_ascii=False, indent=2)
 
         print("\nComputing metrics")
 

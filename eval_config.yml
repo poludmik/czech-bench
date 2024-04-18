@@ -10,13 +10,13 @@ model_name: seq2seq_hf
 #model_parameters: {model_id: gpt-4-1106-preview}  # chat_openai
 #model_parameters: {model_id: llama2, url: http://amd-02:11434, temperature: 0.} # ollama_raw
 #model_parameters: {model_id: claude-3-sonnet-20240229}
-#model_parameters: {model_id: google/flan-t5-xxl, precision: half} # seq2seq_hf
-model_parameters: {model_id: bigscience/mt0-xxl-mt, precision: half} # seq2seq_hf
+#model_parameters: {model_id: google/flan-t5-xl} # seq2seq_hf
+model_parameters: {model_id: CohereForAI/aya-101} # seq2seq_hf
+#model_parameters: {model_id: bigscience/mt0-xxl-mt, precision: half, load_in_8bit: true} # seq2seq_hf
 #model_parameters: {model_id: bigscience/bloomz-7b1-mt} # causal_hf
 #model_parameters: {model_id: MBZUAI/bactrian-x-llama-7b-merged} # causal_hf
 #model_parameters: {model_id: MBZUAI/bactrian-x-llama-13b-merged} # causal_hf
 #model_parameters: {model_id: meta-llama/Llama-2-7b-chat-hf} # causal_hf
-
 
 
 # Benchmark selection:
@@ -27,7 +27,7 @@ benchmarks:
   local: true
 
 - name: anli
-  use: false
+  use: true
   local: true  # true: load from local files, false: load from Hugging Face cloud or cache
 
 - name: arc_challenge
@@ -35,7 +35,7 @@ benchmarks:
   local: true
 
 - name: arc_easy
-  use: false
+  use: true
   local: true
 
 - name: belebele
@@ -43,48 +43,48 @@ benchmarks:
   local: true
 
 - name: ctkfacts
-  use: false
+  use: true
   local: true
 
 - name: mall_reviews
-  use: false
+  use: true
   local: true
 
 - name: mmlu
-  use: false
+  use: true
   local: true
 
 - name: klokanek
-  use: false
+  use: true
   local: true
 
 - name: sqad
-  use: false
+  use: true
   local: true
 
 - name: squad
-  use: false
+  use: true
   local: true
 
 - name: truthfulqa
-  use: false
+  use: true
   local: true
 
 # Additional Benchmarks:
 - name: czech_news
-  use: false
+  use: true
   local: true 
 
 - name: facebook_comments
-  use: false
+  use: true
   local: true
 
 - name: snli
-  use: false
+  use: true
   local: true
 
 - name: subjectivity
-  use: false
+  use: true
   local: true
 
 # English Benchmarks:
@@ -93,7 +93,7 @@ benchmarks:
   local: true
 
 - name: arc_easy_en
-  use: false
+  use: true
   local: true
 
 - name: belebele_en
@@ -101,11 +101,11 @@ benchmarks:
   local: true
 
 - name: mmlu_en
-  use: false
+  use: true
   local: true
 
 - name: truthfulqa_en
-  use: false
+  use: true
   local: true
 
 # Limit the number of used examples for each benchmark or subtask (debugging purposes)

@@ -7,6 +7,7 @@ import sys
 import os
 import numpy as np
 import time
+import copy
 from datetime import datetime
 from .prompts import PROMPT_SELECTOR
 
@@ -115,15 +116,15 @@ class Evaluator:
                     ans_lemmas.append(lems)
                     ans_roots.append(roots)
 
-                ref_lem_dict = dict(ref)
+                ref_lem_dict = copy.deepcopy(ref)
                 ref_lem_dict["answers"]["text"] = ans_lemmas
-                ref_root_dict = dict(ref)
+                ref_root_dict = copy.deepcopy(ref)
                 ref_root_dict["answers"]["text"] = ans_roots
 
                 lems, roots = self.morpho_analyze(result)
-                pred_lem_dict = dict(ans)
+                pred_lem_dict = copy.deepcopy(ans)
                 pred_lem_dict["prediction_text"] = lems
-                pred_root_dict = dict(ans)
+                pred_root_dict = copy.deepcopy(ans)
                 pred_root_dict["prediction_text"] = roots
 
                 ref_lemmas.append(ref_lem_dict)
