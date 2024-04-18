@@ -48,7 +48,7 @@ class Evaluator:
         print("Loading dataset locally")
         self.dataset = list(SquadV2()._generate_examples(local_dir + "/data/dev-v2.0.json"))
         #self.dataset = self.dataset[:4000]
-        self.dataset = self.dataset[4000:8000]
+        #self.dataset = self.dataset[4000:8000]
         #self.dataset = self.dataset[8000:]
     
     def morpho_analyze(self, answer):
@@ -156,20 +156,20 @@ class Evaluator:
             count += 1
             cum_time += end_time - start_time
 
-        progress = {
-            "references": references,
-            "predictions": predictions,
-            "ref_lemmas": ref_lemmas,
-            "pred_lemmas": pred_lemmas,
-            "ref_roots": ref_roots,
-            "pred_roots": pred_roots,
-            "na_gt": na_gt,
-            "na_pr": na_pr,
-            "parse_fails": parse_fails,
-            "count": count,
-            "cum_time": cum_time
-        }
-        json.dump(progress, open(local_dir + "/part2.json", "w"), ensure_ascii=False, indent=2)
+        # progress = {
+        #     "references": references,
+        #     "predictions": predictions,
+        #     "ref_lemmas": ref_lemmas,
+        #     "pred_lemmas": pred_lemmas,
+        #     "ref_roots": ref_roots,
+        #     "pred_roots": pred_roots,
+        #     "na_gt": na_gt,
+        #     "na_pr": na_pr,
+        #     "parse_fails": parse_fails,
+        #     "count": count,
+        #     "cum_time": cum_time
+        # }
+        # json.dump(progress, open(local_dir + "/part2.json", "w"), ensure_ascii=False, indent=2)
 
         print("\nComputing metrics")
 
