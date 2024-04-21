@@ -9,7 +9,7 @@ This repository is being created as part of my diploma thesis at FEE, CTU Prague
 All currently supported benchmarks are listed in the table below. Further details and attributions are presented in each benchmark's respective README.
 
 | Dataset                                           | Language               | Task                       | Metrics                    | Evaluation Examples |
-| ------------------------------------------------- | ---------------------- | -------------------------- | -------------------------- | ------------------- |
+| ------------------------------------------------- | ---------------------- | -------------------------- | -------------------------- | ------------------: |
 | [AGREE](benchmarks/agree)                         | CS (Original)          | Subject-verb agreement     | Acc                        | 627                 |
 | [ANLI](benchmarks/anli)                           | CS (Translated)        | Natural Language Inference | Acc, Macro F1              | 1200                |
 | [ANLI EN](benchmarks/anli_en)                     | EN (Original)          | Natural Language Inference | Acc, Macro F1              | 1200                |
