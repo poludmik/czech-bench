@@ -17,7 +17,7 @@ Supported parameters:
     - `temperature` - output sampling temperature, defaults to 0
     - `max_tokens` - maximum of tokens to generate, defaults to 512
 
-- [ollama_raw](ollama_raw.py) - Custom integration of the [Ollama](https://github.com/ollama/ollama) local LLM runtime. An already-running Ollama instance with the requested model pre-pulled is required.  
+- [ollama_raw](ollama_raw.py) - Custom integration of the [Ollama](https://github.com/ollama/ollama) local LLM runtime. An already-running Ollama instance with the requested model pre-pulled is required. Please note that running a model through Ollama may result in inferior performance.  
 Supported parameters:  
     - `model_id` - model to be loaded and evaluated, defaults to 'llama2'
     - `base_url` - URL of the running Ollama server, defaults to 'http<span>://localhost:11434'
