@@ -1,6 +1,6 @@
 # Czech-Bench: An evaluation framework for Czech-enabled Large Language Models
 
-Czech-Bench is a collection of LLM benchmarks available for the Czech language, including 5 newly translated datasets. It currently includes 17 Czech benchmarks in total, accompanied by 8 original English benchmark versions intended for cross-lingual performance comparison.
+Czech-Bench is a collection of LLM benchmarks available for the Czech language, including 5 newly translated datasets. It currently includes 17 Czech benchmarks in total, accompanied by 8 original English benchmark versions, intended for cross-lingual performance comparison. Supported models include OpenAI's and Anthropic's chat APIs, models compatible with the AutoModelForCausalLM and AutoModelForSeq2SeqLM classes of the Transformers library, and all models supported by the [Ollama](https://github.com/ollama/ollama) runtime.
 
 This repository is being created as part of my diploma thesis at FEE, CTU Prague. It is still in active development and breaking changes may be introduced.
 
@@ -38,7 +38,7 @@ All currently supported benchmarks are listed in the table below. Further detail
 
 ## Interim results
 
-The table below provides a performance comparison of two popular commercial models, OpenAI's GPT-3.5 Turbo (version 0125) and Anthropic's Claude 3 Haiku (version 20240307). Evaluation of available multilingual open-source models is currently underway.
+The table below provides a performance comparison of two popular commercial models, OpenAI's GPT-3.5 Turbo (version 0125) and Anthropic's Claude 3 Haiku (version 20240307). Evaluation of available multilingual open-source models is currently underway. Details about individual datasets and reported metrics can be found in each benchmark's respective README.
 
 | Dataset           | Metrics                    | GPT 3.5 turbo              | Claude 3 Haiku             |
 | ----------------- | -------------------------- | -------------------------: | -------------------------: |
@@ -68,7 +68,7 @@ The table below provides a performance comparison of two popular commercial mode
 | TruthfulQA        | Acc                        | 53.5                       | 65.8                       |
 | TruthfulQA EN     | Acc                        | 58.5                       | 70.8                       |
 
-## Usage
+## Usage Instructions
 
 ### Requirements:
 
@@ -76,7 +76,7 @@ The table below provides a performance comparison of two popular commercial mode
 
  - git-lfs
 
-### Setup Instructions:
+### Setup:
 
 Clone this repository:
 
@@ -89,7 +89,7 @@ Setup Python environment:
     source venv/bin/activate
     pip install -r requirements.txt
 
-### Evaluation
+### Evaluation:
 
 Inspect the contents of eval_config.yml and make desired changes. Consult the model integrations [README](models) for further reference. Create additional config files if needed.
 
