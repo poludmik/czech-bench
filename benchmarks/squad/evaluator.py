@@ -47,9 +47,7 @@ class Evaluator:
     def load_local(self):      
         print("Loading dataset locally")
         self.dataset = list(SquadV2()._generate_examples(local_dir + "/data/dev-v2.0.json"))
-        #self.dataset = self.dataset[:4000]
-        #self.dataset = self.dataset[4000:8000]
-        #self.dataset = self.dataset[8000:]
+        self.dataset = self.dataset[:4000] # To save evaluation costs
     
     def morpho_analyze(self, answer):
         tokens = [tok.rstrip(",.?!") for tok in answer.lower().rstrip('\r\n').split()]
@@ -98,24 +96,22 @@ class Evaluator:
                     result = llm.invoke(prompt.format_prompt(context=context, question=question).text)
                 result = str_parser.invoke(result)
                 end_time = time.time()
-                # print(example["answers"])
-                # print(result)
             except Exception as e:
                 print(f"\nExample skipped due to an LLM Error: {e}")
                 continue
             
-            try:
-                a_dict = json.loads(result)
-                a_text = a_dict["answer"]
-                a_prob = a_dict["no_answer_prob"]
-                try1 = a_text.lower().rstrip('\r\n').split()
-                try2 = a_prob - 1
-                no_answer_gt = 0 if example["answers"]["answer_start"] else 1
-                na_gt.append(no_answer_gt)
-                na_pr.append(a_prob)
-            except:
-                parse_fails += 1
-                continue
+            result = result.split("\n")[0]
+            #print(result)
+            if result.strip() == "-":
+                a_text = ""
+                a_prob = 1
+            else:
+                a_text = result
+                a_prob = 0
+            no_answer_gt = 0 if example["answers"]["answer_start"] else 1
+            na_gt.append(no_answer_gt)
+            na_pr.append(a_prob)
+
             id = example["id"]
             ref = {
                 "answers": example["answers"],
@@ -155,21 +151,6 @@ class Evaluator:
                     pred_roots.append(pred_root_dict)
             count += 1
             cum_time += end_time - start_time
-
-        # progress = {
-        #     "references": references,
-        #     "predictions": predictions,
-        #     "ref_lemmas": ref_lemmas,
-        #     "pred_lemmas": pred_lemmas,
-        #     "ref_roots": ref_roots,
-        #     "pred_roots": pred_roots,
-        #     "na_gt": na_gt,
-        #     "na_pr": na_pr,
-        #     "parse_fails": parse_fails,
-        #     "count": count,
-        #     "cum_time": cum_time
-        # }
-        # json.dump(progress, open(local_dir + "/part2.json", "w"), ensure_ascii=False, indent=2)
 
         print("\nComputing metrics")
 

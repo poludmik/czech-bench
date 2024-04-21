@@ -2,10 +2,18 @@
 
 The dataset was obtained from [Hugging Face](https://huggingface.co/datasets/facebook/belebele).
 
+### Dataset details
+
 - Language: EN
 - Task: Question Answering / Reading Comprehension
 - Samples: 900 (Test set)
 - Few-shot examples: 5 (From test set, excluded from evaluation)
+
+### Task description
+
+The model is presented with a source passage, a question related to that passage and a selection of 4 possible answers. It needs to return a number (1 to 4) corresponding to the correct answer.
+
+The reported accuracy metric represents the percentage of correctly selected answers.
 
 ## References
 

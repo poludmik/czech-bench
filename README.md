@@ -1,14 +1,82 @@
-# Czech-Bench: An evaluation framework for Czech LLMs
+# Czech-Bench: An evaluation framework for Czech-enabled Large Language Models
 
-This repo is being created as part of a diploma thesis at FEE, CTU Prague.
+Czech-Bench is a collection of LLM benchmarks available for the Czech language, including 5 newly translated datasets. It currently includes 17 Czech benchmarks in total, accompanied by 8 original English benchmark versions intended for cross-lingual performance comparison.
 
-## Requirements
+This repository is being created as part of my diploma thesis at FEE, CTU Prague. It is still in active development and breaking changes may be introduced.
+
+## Included benchmarks
+
+All currently supported benchmarks are listed in the table below. Further details and attributions are presented in each benchmark's respective README.
+
+| Dataset                                           | Language               | Task                       | Metrics                    | Evaluation Examples |
+| ------------------------------------------------- | ---------------------- | -------------------------- | -------------------------- | ------------------- |
+| [AGREE](benchmarks/agree)                         | CS (Original)          | Subject-verb agreement     | Acc                        | 627                 |
+| [ANLI](benchmarks/anli)                           | CS (Translated)        | Natural Language Inference | Acc, Macro F1              | 1200                |
+| [ANLI EN](benchmarks/anli_en)                     | EN (Original)          | Natural Language Inference | Acc, Macro F1              | 1200                |
+| [ARC Challenge](benchmarks/arc_challenge)         | CS (Translated)        | Knowledge-Based QA         | Acc                        | 1172                |
+| [ARC Challenge EN](benchmarks/arc_challenge_en)   | EN (Original)          | Knowledge-Based QA         | Acc                        | 1172                |
+| [ARC Easy](benchmarks/arc_easy)                   | CS (Translated)        | Knowledge-Based QA         | Acc                        | 2376                |
+| [ARC Easy EN](benchmarks/arc_easy_en)             | EN (Original)          | Knowledge-Based QA         | Acc                        | 2376                |
+| [Belebele](benchmarks/belebele)                   | CS (Human translation) | Reading Comprehension / QA | Acc                        | 895                 |
+| [Belebele EN](benchmarks/belebele_en)             | EN (Original)          | Reading Comprehension / QA | Acc                        | 895                 |
+| [CTKFacts](benchmarks/ctkfacts)                   | CS (Original)          | Natural Language Inference | Acc, Macro F1              | 558                 |
+| [Czech News](benchmarks/czech_news)               | CS (Original)          | News Topic Classification  | Acc, Macro F1              | 1000                |
+| [Facebook Comments](benchmarks/facebook_comments) | CS (Original)          | Sentiment Analysis         | Acc, Macro F1              | 1000                |
+| [GSM8K](benchmarks/gsm8k)                         | CS (Translated)        | Mathematical inference     | EM Acc                     | 1319                |
+| [GSM8K EN](benchmarks/gsm8k_en)                   | EN (Original)          | Mathematical inference     | EM Acc                     | 1319                |
+| [Klokánek](benchmarks/klokanek)                   | CS (Original)          | Math/Logical Inference     | Acc                        | 808                 |
+| [Mall Reviews](benchmarks/mall_reviews)           | CS (Original)          | Sentiment Analysis         | Acc, Macro F1              | 3000                |
+| [MMLU](benchmarks/mmlu)                           | CS (Translated)        | Knowledge-Based QA         | Acc                        | 12505               |
+| [MMLU EN](benchmarks/mmlu_en)                     | EN (Original)          | Knowledge-Based QA         | Acc                        | 12505               |
+| [SNLI](benchmarks/snli)                           | CS (Translated)        | Natural Language Inference | Acc, Macro F1              | 10000               |
+| [SNLI EN](benchmarks/snli_en)                     | EN (Original)          | Natural Language Inference | Acc, Macro F1              | 10000               |
+| [SQAD](benchmarks/sqad)                           | CS (Original)          | Reading Comprehension / QA | EM Acc, BoW F1             | 843                 |
+| [SQuAD](benchmarks/squad)                         | CS (Translated)        | Reading Comprehension / QA | EM Acc, F1, No-Ans Acc, F1 | 4000                |
+| [Subjectivity](benchmarks/subjectivity)           | CS (Original)          | Subjectivity Analysis      | Acc, Macro F1              | 2000                |
+| [TruthfulQA](benchmarks/truthfulqa)               | CS (Translated)        | Knowledge-Based QA         | Acc                        | 813                 |
+| [TruthfulQA EN](benchmarks/truthfulqa_en)         | EN (Original)          | Knowledge-Based QA         | Acc                        | 813                 |
+
+## Interim results
+
+The table below provides a performance comparison of two popular commercial models, OpenAI's GPT-3.5 Turbo (version 0125) and Anthropic's Claude 3 Haiku (version 20240307). Evaluation of available multilingual open-source models is currently underway.
+
+| Dataset           | Metrics                    | GPT 3.5 turbo              | Claude 3 Haiku             |
+| ----------------- | -------------------------- | -------------------------: | -------------------------: |
+| AGREE             | Acc                        | 46.7                       | 65.7                       |
+| ANLI              | Acc, Macro F1              | 44.67, 41.93               | 51.50, 50.75               |
+| ANLI EN           | Acc, Macro F1              | 44.25, 40.58               | 55.34, 54.16               |
+| ARC Challenge     | Acc                        | 73.1                       | 76.8                       |
+| ARC Challenge EN  | Acc                        | 82.9                       | 77.6                       |
+| ARC Easy          | Acc                        | 85.8                       | 85.3                       |
+| ARC Easy EN       | Acc                        | 93.1                       | 89.1                       |
+| Belebele          | Acc                        | 80.3                       | 88.2                       |
+| Belebele EN       | Acc                        | 87.0                       | 91.0                       |
+| CTKFacts          | Acc, Macro F1              | 61.83, 47.71               | 69.57, 62.03               |
+| Czech News        | Acc, Macro F1              | 78.9, 78.45                | 81.3, 81.31                |
+| Facebook Comments | Acc, Macro F1              | 71.50, 69.02               | 75.8, 74.09                |
+| GSM8K             | EM Acc                     | TBD                        | TBD                        |
+| GSM8K EN          | EM Acc                     | TBD                        | TBD                        |
+| Klokánek          | Acc                        | 29.3                       | 24.5                       |
+| Mall Reviews      | Acc, Macro F1              | 59.76, 55.42               | 57.67, 55.23               |
+| MMLU              | Acc                        | 58.0                       | 67.3                       |
+| MMLU EN           | Acc                        | 64.9                       | 73.0                       |
+| SNLI              | Acc, Macro F1              | 61.8, 51.49                | 71.66, 70.48               |
+| SNLI EN           | Acc, Macro F1              | TBD                        | TBD                        |
+| SQAD              | EM Acc, BoW F1             | 66.19, 83.47               | 59.79, 76.25               |
+| SQuAD             | EM Acc, F1, No-Ans Acc, F1 | 37.30, 42.98, 52.42, 44.21 | 36.25, 44.67, 60.27, 56.38 |
+| Subjectivity      | Acc, Macro F1              | 80.15, 80.15               | 81.5, 81.21                |
+| TruthfulQA        | Acc                        | 53.5                       | 65.8                       |
+| TruthfulQA EN     | Acc                        | 58.5                       | 70.8                       |
+
+## Usage
+
+### Requirements:
 
  - Python >= 3.10
 
  - git-lfs
 
-## Setup Instructions
+### Setup Instructions:
 
 Clone this repository:
 
@@ -21,9 +89,9 @@ Setup Python environment:
     source venv/bin/activate
     pip install -r requirements.txt
 
-## Usage
+### Evaluation
 
-Inspect contents of eval_config.yml and make desired changes. Create additional config files if needed.
+Inspect the contents of eval_config.yml and make desired changes. Consult the model integrations [README](models) for further reference. Create additional config files if needed.
 
 Then run the evaluation:
 
@@ -47,6 +115,8 @@ Ullrich et al., [CsFEVER and CTKFacts: Acquiring Czech data for fact verificatio
 Kydlíček et al., [A Dataset and Strong Baselines for Classification of Czech News Texts](https://arxiv.org/abs/2307.10666), 2023
 
 Habernal et al., [Sentiment Analysis in Czech Social Media Using Supervised Machine Learning](https://aclanthology.org/W13-1609/), 2013
+
+Cobbe et al., [Training Verifiers to Solve Math Word Problems](https://arxiv.org/abs/2110.14168), 2021
 
 Kydlíček, [Klokánek dataset](https://huggingface.co/datasets/hynky/klokan-qa), 2023
 

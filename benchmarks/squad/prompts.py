@@ -8,9 +8,8 @@ from langchain.prompts.chat import (
 )
 
 
-task = """Pro zadaný kontext a s ním souvisejícím otázku vygeneruj správnou odpověď. Text odpovědi extrahuj přímo z kontextu bez dalšího komentáře.
-Odpověď má tvar slovníku v JSON formátu, který kromě textu samotné odpovědi obsahuje také pravděpodobnost toho, že pro daný kontext nelze otázku zodpovědet. 
-Pokud tedy kontext neobsahuje odpověď na danou otázku, vrať prázdný string v poli answer a hodnotu no_answer_prob nastav na 1.
+task = """Pro zadaný kontext a s ním souvisejícím otázku vygeneruj správnou odpověď. Odpovídej minimálním počtem slov extrahovaných z kontextu bez dalšího komentáře.
+Pokud kontext neobsahuje odpověď na danou otázku, odpověz pouze znakem '-' a dále se nevyjadřuj.
 
 """
 
@@ -21,35 +20,35 @@ V osmi letech se Beyoncé a kamarádka z dětství Kelly Rowlandová seznámila 
 Otázka:
 Kdo byl první nahrávací společnost, která dala holkám nahrávací smlouvu?
 Odpověď:
-{{"answer": "Elektra Records", "no_answer_prob": 0}}
+Elektra Records
 
 Kontext:
 Čaj Longjing (také nazývaný čaj z dračí studny), pocházející z Chang-čou, je jedním z nejprestižnějších, ne-li nejprestižnějších čínských čajů. Hangzhou je také proslulé svými hedvábnými deštníky a ručními vějíři. Kuchyně Zhejiang (sama rozdělená do mnoha tradic, včetně kuchyně Chang-čou) je jednou z osmi velkých tradic čínské kuchyně.
 Otázka:
 Kde je zakázaný čaj Longjing?
 Odpoveď:
-{{"answer": "", "no_answer_prob": 1}}
+-
 
 Kontext:
 Dále jsou zde tři zástupci náčelníků štábů obrany se zvláštními pravomocemi, zástupce náčelníka štábu obrany (schopnost), zástupce CDS (personál a výcvik) a zástupce CDS (operace). Hlavní lékař, zastupuje Zdravotnickou službu obrany v rámci personálu obrany a je klinickým vedoucím této služby.
 Otázka:
 Kolik je tam zástupců náčelníků štábů obrany?
 Odpověď:
-{{"answer": "tři", "no_answer_prob": 0}}
+tři
 
 Kontext:
 Německá říše dobyla Ukrajinu během první světové války a plánovala ji buď anektovat, nebo dosadit loutkového krále, ale byla poražena Ententem, s velkou účastí ukrajinských bolševiků. Poté, co Ukrajina dobyla zbytek Ukrajiny od Bělochů, připojila se k SSSR a byla rozšířena (získala Krym a poté Východní Galicii), načež byl za podpory Moskvy zahájen proces Ukrajinizace.
 Otázka:
 Během které války Ukrajina dobyla Německou říši?
 Odpověď:
-{{"answer": "", "no_answer_prob": 1}}
+-
 
 Kontext:
 Německá říše dobyla Ukrajinu během první světové války a plánovala ji buď anektovat, nebo dosadit loutkového krále, ale byla poražena Ententem, s velkou účastí ukrajinských bolševiků. Poté, co Ukrajina dobyla zbytek Ukrajiny od Bělochů, připojila se k SSSR a byla rozšířena (získala Krym a poté Východní Galicii), načež byl za podpory Moskvy zahájen proces Ukrajinizace.
 Otázka:
 Která ukrajinská politická skupina se podílela na porážce německého impéria?
 Odpověď:
-{{"answer": "bolševiků", "no_answer_prob": 0}}
+bolševiků
 
 """
 

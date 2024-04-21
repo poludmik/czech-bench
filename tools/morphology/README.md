@@ -1,12 +1,12 @@
 # Tools for morphological analysis
 
-As suggested in [[1]](#references), the textual answers returned during evaluation of models using the SQuAD and SQAD datasets are processed using morphological analysis, in order to compensate for the large morphological richness of the Czech language compared to English.
+As suggested in [[1]](#references), the textual answers returned while evaluating models using the SQuAD and SQAD datasets are processed using morphological analysis, in order to compensate for the large morphological richness of the Czech language compared to English.
 
 Each word of the returned answer, as well as the reference answers, is first lemmatized using MorphoDita. These lemmas are then replaced by the roots of their word-formation relation trees according to the Derinet lexicon.
 
 ## MorphoDita
 
-MorphoDita and its underlying models can be obtained [here](https://ufal.mff.cuni.cz/morphodita). The Czech MorfFlex2 model used during evaluation is included in this repo.
+MorphoDita and its underlying models can be obtained [here](https://ufal.mff.cuni.cz/morphodita). The Czech MorfFlex2 model used during the evaluation is included in this repo.
 
 ## DeriNet
 

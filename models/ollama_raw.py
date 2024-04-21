@@ -15,7 +15,7 @@ class CustomOllama(LLM):
         self.base_url = base_url
         self.temperature = temperature
 
-        self.ollama = Client(host=base_url, timeout=20)
+        self.ollama = Client(host=base_url, timeout=30)
 
     @property
     def _llm_type(self) -> str:
@@ -26,9 +26,6 @@ class CustomOllama(LLM):
         """Get the identifying parameters."""
         return {"model": self.model}
     
-    def invoke(self, prompt: str) -> str:
-        return self.ollama.generate(model=self.model, prompt=prompt, raw=True, options=Options(temperature=self.temperature))["response"]
-    
     def _call(
         self,
         prompt: str,
@@ -38,9 +35,9 @@ class CustomOllama(LLM):
     ) -> str:
         if stop is not None:
             raise ValueError("stop kwargs are not permitted.")
-        return self.invoke(prompt)
+        return self.ollama.generate(model=self.model, prompt=prompt, raw=True, options=Options(temperature=self.temperature))["response"]
 
 
-def get_llm(model_id="llama2", url="http://localhost:11434", temperature=None):
+def get_llm(model_id="llama2", url="http://localhost:11434", temperature=0):
     llm = CustomOllama(model=model_id, base_url=url, temperature=temperature)
     return llm

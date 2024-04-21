@@ -4,18 +4,22 @@ from torch import cuda
 import torch
 
 
-def get_llm(model_id="CohereForAI/aya-101", device_map='auto', do_sample=False, max_new_tokens=512, precision="full", **kwargs):
+def get_llm(model_id="CohereForAI/aya-101", do_sample=False, max_new_tokens=512, precision="auto", **kwargs):
     device = f'cuda:{cuda.current_device()}' if cuda.is_available() else 'cpu'
     tokenizer = AutoTokenizer.from_pretrained(model_id)
 
-    if precision == "half":
+    if precision == "fp16":
         kwargs["torch_dtype"] = torch.float16
+    elif precision == "bf16":
+        kwargs["torch_dtype"] = torch.bfloat16
+    elif precision == "fp32":
+        kwargs["torch_dtype"] = torch.float32
     else:
-        if precision != "full":
-            print(f"Precision {precision} not recognized, using full precision")
+        if precision != "auto":
+            print(f"Precision '{precision}' not recognized, using 'auto' precision")
         kwargs["torch_dtype"] = 'auto'
 
-    model = AutoModelForSeq2SeqLM.from_pretrained(model_id, device_map=device_map, do_sample=do_sample, **kwargs)
+    model = AutoModelForSeq2SeqLM.from_pretrained(model_id, device_map='auto', do_sample=do_sample, **kwargs)
 
     pipe = pipeline("text2text-generation", model=model, tokenizer=tokenizer, max_new_tokens=max_new_tokens)
     hf = HuggingFacePipeline(pipeline=pipe)

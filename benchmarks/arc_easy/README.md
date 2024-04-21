@@ -1,13 +1,21 @@
-# ARC Easy dataset
+# Czech ARC Easy dataset
 
 The original English dataset was obtained from [Hugging Face](https://huggingface.co/datasets/allenai/ai2_arc).
 
-The translation was performed automatically using the [wmt21-dense-24-wide-en-x](https://huggingface.co/facebook/wmt21-dense-24-wide-en-x) model.
+The translation was performed automatically using the [wmt21-dense-24-wide-en-x](https://huggingface.co/facebook/wmt21-dense-24-wide-en-x) model. For details, refer to the [dataset translation script](../dataset_translation.py).
+
+### Dataset details
 
 - Language: CS (Translated)
-- Task: Knowledge Based Question Answering
+- Task: Knowledge-Based Question Answering
 - Samples: 2376 (Test set)
 - Few-shot examples: 5 (From validation set)
+
+### Task description
+
+The model is presented with a question and a selection of (typically 4) possible answers. It needs to return a letter (A, B, C, ...) corresponding to the correct answer.
+
+The reported accuracy metric represents the percentage of correctly selected answers.
 
 ## References
 
