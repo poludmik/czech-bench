@@ -8,6 +8,7 @@ import traceback
 import numpy as np
 import json
 import warnings
+from dotenv import load_dotenv
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-c", "--config_file", default="eval_config.yml", help="Path to custom config file")
@@ -18,6 +19,7 @@ warnings.filterwarnings("ignore", category=UserWarning)
 
 if __name__ == "__main__":
     args = parser.parse_args([] if "__file__" not in globals() else None)
+    load_dotenv()
 
     # Load config
     with open(args.config_file, "r") as cf:
