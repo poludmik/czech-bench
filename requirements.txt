@@ -110,3 +110,4 @@ ufal.morphodita==1.11.2.1
 urllib3==2.1.0
 xxhash==3.4.1
 yarl==1.9.2
+python-dotenv
