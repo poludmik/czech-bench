@@ -1,0 +1,135 @@
+
+## Evaluation settings ##
+#########################
+
+# Name of the model to be evaluated, corresponding to the name of the python file inside models/ containing model definition (without extension)
+# Available options: chat_openai, chat_anthropic, ollama_raw, seq2seq_hf, causal_hf
+model_name: chat_openai
+
+# Dictionary with optional parameters to be passed to the get_llm function. Can be ommited.
+#model_parameters: {model_id: gpt-3.5-turbo-0125}  # chat_openai
+#model_parameters: {model_id: gpt-4-0125-preview}  # chat_openai
+#model_parameters: {model_id: claude-3-sonnet-20240229}  # chat_anthropic
+#model_parameters: {model_id: llama2, url: http://amd-02:11434, temperature: 0.}  # ollama_raw
+#model_parameters: {model_id: google/flan-t5-xl}  # seq2seq_hf
+#model_parameters: {model_id: CohereForAI/aya-101, precision: fp16}  # seq2seq_hf
+#model_parameters: {model_id: bigscience/mt0-xxl-mt, precision: fp16}  # seq2seq_hf
+#model_parameters: {model_id: bigscience/bloomz-7b1-mt}  # causal_hf
+#model_parameters: {model_id: MBZUAI/bactrian-x-llama-7b-merged}  # causal_hf
+#model_parameters: {model_id: MBZUAI/bactrian-x-llama-13b-merged}  # causal_hf
+
+
+# Benchmark selection:
+benchmarks:
+# Czech Benchmarks:
+- name: agree
+  use: false
+  local: true  # true: load from local files, false: load from Hugging Face cloud or cache (if possible)
+
+- name: anli
+  use: false
+  local: true
+
+- name: arc_challenge
+  use: false
+  local: true
+
+- name: arc_easy
+  use: false
+  local: true
+
+- name: belebele
+  use: false
+  local: true
+
+- name: ctkfacts
+  use: false
+  local: true
+
+- name: czech_news
+  use: false
+  local: true
+
+- name: facebook_comments
+  use: false
+  local: true
+
+- name: gsm8k
+  use: false
+  local: true
+
+- name: klokanek
+  use: false
+  local: true
+
+- name: mall_reviews
+  use: false
+  local: true
+
+- name: mmlu
+  use: false
+  local: true
+
+- name: snli
+  use: false
+  local: true
+
+- name: sqad
+  use: false
+  local: true
+
+- name: squad
+  use: false
+  local: true
+
+- name: subjectivity
+  use: false
+  local: true
+
+- name: truthfulqa
+  use: false
+  local: true
+
+# English Benchmarks:
+- name: anli_en
+  use: false
+  local: true
+
+- name: arc_challenge_en
+  use: false
+  local: true
+
+- name: arc_easy_en
+  use: false
+  local: true
+
+- name: belebele_en
+  use: false
+  local: true
+
+- name: ctkfacts_en
+  use: false
+  local: true
+
+- name: gsm8k_en
+  use: false
+  local: true
+
+- name: mmlu_en
+  use: false
+  local: true
+
+- name: snli_en
+  use: false
+  local: true
+
+- name: subjectivity_en
+  use: false
+  local: true
+
+- name: truthfulqa_en
+  use: false
+  local: true
+
+# Limit the number of used examples for each benchmark or subtask (debugging purposes)
+stop_idx: null  # Set to null for no limit
