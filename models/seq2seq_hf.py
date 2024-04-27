@@ -4,20 +4,22 @@ from torch import cuda
 import torch
 
 
-def get_llm(model_id="CohereForAI/aya-101", do_sample=False, max_new_tokens=512, precision="auto", **kwargs):
+def get_llm(model_id="CohereForAI/aya-101", do_sample=False, max_new_tokens=512, precision=None, **kwargs):
     device = f'cuda:{cuda.current_device()}' if cuda.is_available() else 'cpu'
     tokenizer = AutoTokenizer.from_pretrained(model_id)
 
-    if precision == "fp16":
-        kwargs["torch_dtype"] = torch.float16
-    elif precision == "bf16":
-        kwargs["torch_dtype"] = torch.bfloat16
-    elif precision == "fp32":
-        kwargs["torch_dtype"] = torch.float32
-    else:
-        if precision != "auto":
-            print(f"Precision '{precision}' not recognized, using 'auto' precision")
-        kwargs["torch_dtype"] = 'auto'
+    if precision is not None:
+        if precision == "fp16":
+            kwargs["torch_dtype"] = torch.float16
+        elif precision == "bf16":
+            kwargs["torch_dtype"] = torch.bfloat16
+        elif precision == "fp32":
+            kwargs["torch_dtype"] = torch.float32
+        elif precision == "auto":
+            kwargs["torch_dtype"] = 'auto'
+        else:
+            print(f"Unknown precision '{precision}', setting to 'auto'")
+            kwargs["torch_dtype"] = 'auto'
 
     model = AutoModelForSeq2SeqLM.from_pretrained(model_id, device_map='auto', do_sample=do_sample, **kwargs)
 

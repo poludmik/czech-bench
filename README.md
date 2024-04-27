@@ -40,6 +40,39 @@ All currently supported benchmarks are listed in the table below. Further detail
 | [TruthfulQA](benchmarks/truthfulqa)               | CS (Translated)        | Knowledge-Based QA         | Acc                        | 813                 |
 | [TruthfulQA EN](benchmarks/truthfulqa_en)         | EN (Original)          | Knowledge-Based QA         | Acc                        | 813                 |
 
+## Usage Instructions
+
+### Requirements:
+
+ - Python >= 3.10
+
+ - git-lfs
+
+### Setup:
+
+Clone this repository:
+
+    git lfs clone https://gitlab.com/jirkoada/czech-bench.git
+
+Setup Python environment:
+
+    cd czech-bench
+    virtualenv venv
+    source venv/bin/activate
+    pip install -r requirements.txt
+
+### Evaluation:
+
+Inspect the contents of [*eval_config.yml*](eval_config.yml) and make desired changes. Consult the model integrations [README](models) for further reference. Create additional config files if needed.
+
+Then run the evaluation:
+
+    python3 run_evaluation.py [-c path_to_custom_config.yml] [-n "Optional note to be stored in the result file"]
+
+### Limitations: 
+
+Batch inference is currently not supported, so all evaluation examples are processed sequentially. Any help with introducing batch inference, or possibly even porting the included datasets into the [LM Evaluation Harness](https://github.com/EleutherAI/lm-evaluation-harness) framework would be greatly appreciated.
+
 ## Interim results
 
 The table below provides a performance comparison of two popular commercial models, OpenAI's GPT-3.5 Turbo (version 0125) and Anthropic's Claude 3 Haiku (version 20240307). Evaluation of available multilingual open-source models is currently underway. Details about individual datasets and reported metrics can be found in each benchmark's respective README.
@@ -73,39 +106,6 @@ The table below provides a performance comparison of two popular commercial mode
 | Subjectivity EN   | Acc, Macro F1                  | 86.8, 86.79                | 86.6, 86.59                |
 | TruthfulQA        | Acc                            | 53.5                       | 65.8                       |
 | TruthfulQA EN     | Acc                            | 58.5                       | 70.8                       |
-
-## Usage Instructions
-
-### Requirements:
-
- - Python >= 3.10
-
- - git-lfs
-
-### Setup:
-
-Clone this repository:
-
-    git lfs clone https://gitlab.com/jirkoada/czech-bench.git
-
-Setup Python environment:
-
-    cd czech-bench
-    virtualenv venv
-    source venv/bin/activate
-    pip install -r requirements.txt
-
-### Evaluation:
-
-Inspect the contents of [*eval_config.yml*](eval_config.yml) and make desired changes. Consult the model integrations [README](models) for further reference. Create additional config files if needed.
-
-Then run the evaluation:
-
-    python3 run_evaluation.py [-c path_to_custom_config.yml] [-n "Optional note to be stored in the result file"]
-
-### Limitations: 
-
-Batch inference is currently not supported, so all evaluation examples are processed sequentially. Any help with introducing batch inference, or possibly even porting the included datasets into the [LM Evaluation Harness](https://github.com/EleutherAI/lm-evaluation-harness) framework would be greatly appreciated.
 
 ## References
 

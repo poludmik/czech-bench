@@ -1,5 +1,5 @@
 venv/
-.env/
+.env
 *.scrap/
 *__pycache__/
 *annotations.json
