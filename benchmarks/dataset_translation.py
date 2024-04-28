@@ -124,11 +124,11 @@ if __name__ == '__main__':
     print(device)
 
     if TO_EN:
-        model = AutoModelForSeq2SeqLM.from_pretrained("facebook/wmt21-dense-24-wide-x-en", torch_dtype=torch.bfloat16, device_map='auto', repetition_penalty=PENALTY)
+        model = AutoModelForSeq2SeqLM.from_pretrained("facebook/wmt21-dense-24-wide-x-en", torch_dtype=torch.bfloat16, device_map='auto', repetition_penalty=PENALTY, do_sample=False)
         tokenizer = AutoTokenizer.from_pretrained("facebook/wmt21-dense-24-wide-x-en")
         tokenizer.src_lang = "cs"
     else:
-        model = AutoModelForSeq2SeqLM.from_pretrained("facebook/wmt21-dense-24-wide-en-x", torch_dtype=torch.bfloat16, device_map='auto', repetition_penalty=PENALTY)
+        model = AutoModelForSeq2SeqLM.from_pretrained("facebook/wmt21-dense-24-wide-en-x", torch_dtype=torch.bfloat16, device_map='auto', repetition_penalty=PENALTY, do_sample=False)
         tokenizer = AutoTokenizer.from_pretrained("facebook/wmt21-dense-24-wide-en-x")
 
     translated_data = data.map(translate_subjectivity_example)  # Select the correct map function
