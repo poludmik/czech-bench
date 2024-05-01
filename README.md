@@ -1,6 +1,6 @@
 # Czech-Bench: An Evaluation Framework for Czech-Enabled Large Language Models
 
-Czech-Bench is a collection of LLM benchmarks available for the Czech language. It currently includes 17 Czech benchmarks in total, accompanied by 10 English benchmark versions intended for cross-lingual performance comparison. Five datasets, ARC-Challange, ARC-Easy, GSM8K, MMLU, and TruthfulQA, were newly translated from English to Czech, and two datasets, CTKFacts and the Czech Subjectivity Dataset, were translated from Czech to English. The remaining datasets were gathered from their respective open-source repositories, which are linked and cited in each dataset's README file.
+Czech-Bench is a collection of LLM benchmarks available for the Czech language. It currently includes 17 Czech benchmarks in total, accompanied by 10 English benchmark versions intended for cross-lingual performance comparison. Five datasets, ARC-Challange, ARC-Easy, GSM8K, MMLU, and TruthfulQA, were newly translated from English into Czech, and two datasets, CTKFacts and the Czech Subjectivity Dataset, were translated from Czech into English. The remaining datasets were gathered from their respective open-source repositories, which are linked and cited in each dataset's README file.
 
 Supported models include OpenAI's and Anthropic's chat APIs, models compatible with the `AutoModelForCausalLM` and `AutoModelForSeq2SeqLM` classes of the Transformers library, and all models supported by the [Ollama](https://github.com/ollama/ollama) runtime.
 
