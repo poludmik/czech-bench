@@ -1,12 +1,9 @@
 from langchain_community.llms.huggingface_pipeline import HuggingFacePipeline
-from transformers import AutoModelForSeq2SeqLM, AutoTokenizer, pipeline
-from torch import cuda
+from transformers import pipeline
 import torch
 
 
-def get_llm(model_id="CohereForAI/aya-101", do_sample=False, max_new_tokens=512, precision=None, **kwargs):
-    device = f'cuda:{cuda.current_device()}' if cuda.is_available() else 'cpu'
-    tokenizer = AutoTokenizer.from_pretrained(model_id)
+def get_llm(model_id="google/flan-t5-xl", task=None, do_sample=False, max_new_tokens=512, precision="auto", **kwargs):
 
     if precision is not None:
         if precision == "fp16":
@@ -20,11 +17,14 @@ def get_llm(model_id="CohereForAI/aya-101", do_sample=False, max_new_tokens=512,
         else:
             print(f"Unknown precision '{precision}', setting to 'auto'")
             kwargs["torch_dtype"] = 'auto'
+    kwargs['do_sample'] = do_sample
 
-    model = AutoModelForSeq2SeqLM.from_pretrained(model_id, device_map='auto', do_sample=do_sample, **kwargs)
+    if task is None:
+        pipe = pipeline(model=model_id, device_map='auto', max_new_tokens=max_new_tokens, model_kwargs=kwargs)
+    else:
+        pipe = pipeline(task, model=model_id, device_map='auto', max_new_tokens=max_new_tokens, model_kwargs=kwargs)
 
-    pipe = pipeline("text2text-generation", model=model, tokenizer=tokenizer, max_new_tokens=max_new_tokens)
     hf = HuggingFacePipeline(pipeline=pipe)
-    print(f"Model loaded on {device}")
+    print(f"Model loaded on {pipe.model.device}")
     
     return hf

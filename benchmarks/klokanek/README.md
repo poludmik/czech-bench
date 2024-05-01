@@ -13,7 +13,7 @@ This dataset was obtained from [Hugging Face](https://huggingface.co/datasets/hy
 
 The model is given a challenging word problem and a set of 5 possible answers marked with letters from A to E. It is asked to only return the letter corresponding to the chosen answer.
 
-The reported accuracy metric represents the percentage of correctly selected answers.
+The reported accuracy metric represents the percentage of correctly selected answers. Apart from the overall accuracy, separate average accuracies in the six different difficulty categories are also displayed.
 
 ## References
 
