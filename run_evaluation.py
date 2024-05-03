@@ -50,7 +50,7 @@ if __name__ == "__main__":
     with open(result_file, "a") as rf:
         rf.write(f"Model: {cfg.model_name}\n")
         rf.write(f"Model parameters: \n")
-        rf.write(json.dumps(cfg.model_parameters, indent=4, sort_keys=True))
+        rf.write(json.dumps(cfg.model_parameters, indent=4))
         rf.write(f"\nNote: {note}")
 
     for bench in cfg.benchmarks:
