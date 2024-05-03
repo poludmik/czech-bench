@@ -13,7 +13,7 @@ This dataset was obtained from [Hugging Face](https://huggingface.co/datasets/fe
 
 The model is presented with a text passage and a related question. It is expected to produce a short answer in natural language, that is either a direct excerpt from the passage or a simple "yes" or "no" ("ano" or "ne") answer.
 
-The [SQuAD metric](https://huggingface.co/spaces/evaluate-metric/squad) from Hugging Face was used for evaluation. The obtained exact match accuracy and ROUGE-1-like F1 score metrics are reported. To normalize the compared texts, the [Morpodita](https://ufal.mff.cuni.cz/morphodita) and [Derinet](https://ufal.mff.cuni.cz/derinet) morphological analysis tools are employed. There are three pairs of metrics reported in total, one for unchanged texts, one for lemmatized texts, and one for lemmas replaced with the roots of their word-formation relation trees.
+The [SQuAD metric](https://huggingface.co/spaces/evaluate-metric/squad) from Hugging Face was used for evaluation. The obtained exact match accuracy and ROUGE-1-like F1 score metrics are reported. To normalize the compared texts, the [Morphodita](https://ufal.mff.cuni.cz/morphodita) and [Derinet](https://ufal.mff.cuni.cz/derinet) morphological analysis tools are employed. There are three pairs of metrics reported in total, one for unchanged texts, one for lemmatized texts, and one for lemmas replaced with the roots of their word-formation relation trees.
 
 ## References
 
