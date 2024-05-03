@@ -54,7 +54,7 @@ Clone this repository:
 
     git lfs clone https://gitlab.com/jirkoada/czech-bench.git
 
-Setup Python environment:
+Set up Python environment:
 
     cd czech-bench
     virtualenv venv
@@ -143,3 +143,7 @@ Rajpurkar et al., [Know What You Don't Know: Unanswerable Questions for SQuAD](h
 Přibáň and Steinberger, [Czech Dataset for Cross-lingual Subjectivity Classification](https://arxiv.org/abs/2204.13915), 2022
 
 Lin et al., [TruthfulQA: Measuring How Models Mimic Human Falsehoods](https://arxiv.org/abs/2109.07958), 2022
+
+Straková et al., [Open-Source Tools for Morphology, Lemmatization, POS Tagging and Named Entity Recognition](https://aclanthology.org/P14-5003), 2014
+
+Vidra et al., [DeriNet 2.0: Towards an All-in-One Word-Formation Resource](https://aclanthology.org/W19-8510), 2019
