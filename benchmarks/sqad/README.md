@@ -15,6 +15,10 @@ The model is presented with a text passage and a related question. It is expecte
 
 The [SQuAD metric](https://huggingface.co/spaces/evaluate-metric/squad) from Hugging Face was used for evaluation. The obtained exact match accuracy and ROUGE-1-like F1 score metrics are reported. To normalize the compared texts, the [Morphodita](https://ufal.mff.cuni.cz/morphodita) and [Derinet](https://ufal.mff.cuni.cz/derinet) morphological analysis tools are employed. There are three pairs of metrics reported in total, one for unchanged texts, one for lemmatized texts, and one for lemmas replaced with the roots of their word-formation relation trees.
 
+## License
+
+The dataset is licensed under [Creative Commons BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
+
 ## References
 
 [1] Sabol et al., [Czech Question Answering with Extended SQAD v3.0 Benchmark Dataset](https://nlp.fi.muni.cz/raslan/2019/paper14-medved.pdf), 2019

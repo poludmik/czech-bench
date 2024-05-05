@@ -17,6 +17,10 @@ The model is presented with a question and a selection of (typically 4) possible
 
 The reported accuracy metric represents the percentage of correctly selected answers.
 
+## License
+
+The dataset is licensed under [Creative Commons BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+
 ## References
 
 [1] Clark et al., [Think you have Solved Question Answering? Try ARC, the AI2 Reasoning Challenge](https://arxiv.org/abs/1803.05457), 2018

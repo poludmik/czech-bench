@@ -17,6 +17,10 @@ The model is presented with a source passage and a question, that is not guarant
 
 The exact match accuracy and ROUGE-1-like F1 score obtained using the [SQuAD v2 metric](https://huggingface.co/spaces/evaluate-metric/squad_v2) from Hugging Face are reported, as well as the accuracy and macro-averaged F1 score in the binary classification problem of detecting unanswerable questions. To normalize the compared texts, the [Morphodita](https://ufal.mff.cuni.cz/morphodita) and [Derinet](https://ufal.mff.cuni.cz/derinet) morphological analysis tools are employed. There are three pairs of EM and ROUGE-1 metrics reported in total, one for unchanged texts, one for lemmatized texts, and one for lemmas replaced with the roots of their word-formation relation trees.
 
+## License
+
+The dataset is licensed under [Creative Commons BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+
 ## References
 
 [1] Macková and Straka, [Reading Comprehension in Czech via Machine Translation and Cross-lingual Transfer](https://arxiv.org/abs/2007.01667), 2020

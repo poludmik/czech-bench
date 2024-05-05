@@ -15,6 +15,10 @@ The model is presented with a statement extracted from a movie review or descrip
 
 The reported metrics are classification accuracy and macro-averaged F1 score.
 
+## License
+
+The dataset is licensed under [Creative Commons BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+
 ## References
 
 [1] Přibáň and Steinberger, [Czech Dataset for Cross-lingual Subjectivity Classification](https://arxiv.org/abs/2204.13915), 2022

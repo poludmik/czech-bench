@@ -22,6 +22,10 @@ The model is asked to select one of five possible forms of a verb that has been 
 
 The reported accuracy metric represents the percentage of correctly completed sentences.
 
+## License
+
+The dataset is licensed under [Creative Commons BY-NC 2.0](https://creativecommons.org/licenses/by-nc/2.0/).
+
 ## References
 
 [1] Baisa, [Byte Level Language Models](https://is.muni.cz/th/139654/fi_d/), 2016

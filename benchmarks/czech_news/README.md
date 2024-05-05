@@ -23,6 +23,10 @@ The model is expected to return the number corresponding to the chosen category.
 
 The reported accuracy metric represents the percentage of correctly selected answers.
 
+## License
+
+The dataset is licensed under [Creative Commons Zero 1.0](https://creativecommons.org/publicdomain/zero/1.0/).
+
 ## References
 
 [1] Kydlíček et al., [A Dataset and Strong Baselines for Classification of Czech News Texts](https://arxiv.org/abs/2307.10666), 2023
