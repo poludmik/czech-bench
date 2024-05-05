@@ -8,9 +8,13 @@ Each word of the returned answer, as well as the reference answers, is first lem
 
 MorphoDita and its underlying models can be obtained [here](https://ufal.mff.cuni.cz/morphodita). The Czech MorfFlex2 model used during the evaluation is included in this repo.
 
+The MorphoDita models are licensed under [Creative Commons BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+
 ## DeriNet
 
 DeriNet can be obtained from [GitHub](https://github.com/vidraj/derinet). Only the 2.0 release of the lexicon is provided in this repository.
+
+Derinet is licensed under [Creative Commons BY-NC-SA 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/)
 
 ## References
 
