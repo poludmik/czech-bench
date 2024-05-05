@@ -9,7 +9,7 @@ from langchain.prompts.chat import (
 
 
 task = """V zadané větě je jedno slovo nahrazeno výrazem '____'. Z nabídnutých možností vyber slovo, po jehož dolnění bude zadaná věta gramaticky správná.
-Zvolenou odpověď neopakuj. Odpovídej vždy pouze číslicí odpovídajícím zvolené odpovědi bez dašího komentáře.
+Zvolenou odpověď neopakuj. Odpovídej vždy pouze číslicí odpovídající zvolené odpovědi bez dašího komentáře.
 
 """
 
