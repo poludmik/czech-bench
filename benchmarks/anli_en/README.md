@@ -15,6 +15,10 @@ Natural language inference is a 3-class classification problem. Each example con
 
 The reported metrics are classification accuracy and macro-averaged F1 score.
 
+## License
+
+The dataset is licensed under [Creative Commons BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/).
+
 ## References
 
 [1] Nie et al., [Adversarial NLI: A New Benchmark for Natural Language Understanding](https://arxiv.org/abs/1910.14599v2), 2020

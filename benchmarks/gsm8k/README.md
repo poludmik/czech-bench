@@ -19,6 +19,10 @@ The model is presented with a math word problem. It is asked to describe its sol
 
 The main evaluation accuracy metric represents the percentage of final numerical answers exactly matching the references. The mean absolute error and mean relative error of the numerical answers are also displayed.
 
+## License
+
+The dataset was released under the [MIT license](LICENSE).
+
 ## References
 
 Cobbe et al., [Training Verifiers to Solve Math Word Problems](https://arxiv.org/abs/2110.14168), 2021

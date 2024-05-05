@@ -15,6 +15,10 @@ The model is given a challenging word problem and a set of 5 possible answers ma
 
 The reported accuracy metric represents the percentage of correctly selected answers. Apart from the overall accuracy, separate average accuracies in the six different difficulty categories are also displayed.
 
+## License
+
+The dataset is licensed under [Creative Commons BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+
 ## References
 
 [1] Kydlíček, [Klokánek dataset](https://huggingface.co/datasets/hynky/klokan-qa), 2023

@@ -15,6 +15,10 @@ The model is presented with a source passage, a question related to that passage
 
 The reported accuracy metric represents the percentage of correctly selected answers.
 
+## License
+
+The dataset is licensed under [Creative Commons BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+
 ## References
 
 [1] Bandarkar et al., [The Belebele Benchmark: a Parallel Reading Comprehension Dataset in 122 Language Variants](https://arxiv.org/abs/2308.16884), 2023

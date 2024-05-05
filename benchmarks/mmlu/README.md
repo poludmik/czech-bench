@@ -19,6 +19,10 @@ MMLU consists of 57 separate subtasks, 56 of which are used here. Each subtask's
 
 Accuracies for all 56 subtasks are reported, as well as averaged accuracies in 4 subtask categories (Humanities, Social Sciences, STEM, and Other) and the final average accuracy computed over all 56 accuracy values.
 
+## License
+
+The dataset was released under the [MIT license](LICENSE).
+
 ## References
 
 [1] Hendrycks et al., [Measuring Massive Multitask Language Understanding](https://arxiv.org/abs/2009.03300), 2021

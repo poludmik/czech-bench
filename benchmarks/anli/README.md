@@ -15,6 +15,10 @@ Natural language inference is a 3-class classification problem. Each example con
 
 The reported metrics are classification accuracy and macro-averaged F1 score.
 
+## License
+
+The dataset is licensed under [Creative Commons BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/).
+
 ## References
 
 [1] Ullrich, [Dataset for Automated Fact Checking in Czech

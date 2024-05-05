@@ -15,6 +15,10 @@ The model is given a piece of text and is asked to classify its sentiment as pos
 
 The reported metrics are classification accuracy and macro-averaged F1 score.
 
+## License
+
+The dataset is licensed under [Creative Commons BY-NC-SA 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/).
+
 ## References
 
 [1] Habernal et al., [Sentiment Analysis in Czech Social Media Using Supervised Machine Learning](https://aclanthology.org/W13-1609/), 2013
