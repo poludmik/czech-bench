@@ -1,7 +1,7 @@
 
 # LLM integrations
 
-There are currently 4 available model classes to use for the evaluation, all interfaced via [Langchain](https://github.com/langchain-ai/langchain). 
+There are currently 5 available model classes to use for the evaluation, all interfaced via [Langchain](https://github.com/langchain-ai/langchain). 
 
 The model to be evaluated can be selected in the [*eval_config.yml*](*eval_config.yml*) file using the `model_name` parameter. The choices currently available are:
 
@@ -33,10 +33,19 @@ Supported parameters:
     - `device_map` - corresponds to the `device_map` parameter of the Transformers pipeline. Defaults to 'auto'.
     - `**kwargs` - all additional keyword arguments will be passed directly to the model's loading function. These can include `temperature`, `load_in_8bit`, `load_in_4bit`, etc.
 
+- [llama3_chat](llama3_chat.py) - Custom integration of the LLama3 Instruct models, compliant with their dedicated prompt structure. The models can be automatically pulled from Hugging Face, but require having set the HF_TOKEN environment variable and having agreed to Meta's usage terms.  
+Supported parameters:  
+    - `model_id` - Hugging Face ID of the selected model ('meta-llama/Meta-Llama-3-8B-Instruct' or 'meta-llama/Meta-Llama-3-70B-Instruct'), or local path
+    - `do_sample` - enables output sampling instead of greedy decoding, defaults to False
+    - `max_new_tokens` - maximum number of tokens to generate, defaults to 512
+    - `precision` - determines the torch_dtype parameter of the model. Use 'fp16' for `torch.float16`, 'bf16' for `torch.bfloat16`, 'fp32' for `torch.float32`, or 'auto' for automatic selection based on model parameters. Defaults to 'auto'.
+    - `device_map` - corresponds to the `device_map` parameter of the Transformers pipeline. Defaults to 'auto'.
+    - `**kwargs` - all additional keyword arguments will be passed directly to the model's loading function. These can include `temperature`, `load_in_8bit`, `load_in_4bit`, etc.
+
 Supported model parameters can be set using the `model_parameters` dictionary inside [*eval_config.yml*](*eval_config.yml*).
 
 ## Custom LLM integration
 
-If your model cannot be loaded using one of the options above, feel free to implement a custom loader. The main constraint is you need to create an object compliant with Langchain's [LLM](https://python.langchain.com/docs/modules/model_io/llms/custom_llm/) or [ChatModel](https://python.langchain.com/docs/modules/model_io/chat/custom_chat_model/) structure and return it using the `get_llm` function. You can take inspiration from the custom [ollama_raw](ollama_raw.py) loader.
+If your model cannot be loaded using one of the options above, feel free to implement a custom loader. The main constraint is you need to create an object compliant with Langchain's [LLM](https://python.langchain.com/docs/modules/model_io/llms/custom_llm/) or [ChatModel](https://python.langchain.com/docs/modules/model_io/chat/custom_chat_model/) structure and return it using the `get_llm` function. You can take inspiration from the custom [ollama_raw](ollama_raw.py) and [llama3_chat](llama3_chat.py) loaders.
 
 Provided your model is implemented in *my_model.py* inside this folder, it can be loaded for evaluation by setting the `model_name` parameter inside the config file to 'my_model'.
