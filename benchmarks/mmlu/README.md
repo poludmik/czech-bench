@@ -10,7 +10,7 @@ The professional_law subtask is excluded from the evaluation, due to large infer
 
 - Language: CS (Translated)
 - Task: Knowledge-Based Question Answering
-- Samples: 12505 (Test set)
+- Samples: 12508 (Test set)
 - Few-shot examples: 5 (From the development set for each topic)
 
 ### Task description

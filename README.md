@@ -4,7 +4,7 @@ Czech-Bench is a collection of LLM benchmarks available for the Czech language. 
 
 Supported models include OpenAI's and Anthropic's chat APIs, models compatible with the `AutoModelForCausalLM` and `AutoModelForSeq2SeqLM` classes of the Transformers library, and all models supported by the [Ollama](https://github.com/ollama/ollama) runtime.
 
-This repository is being created as part of my diploma thesis at FEE, CTU Prague. It is still in active development and breaking changes may be introduced.
+This repository is being created as part of my master's thesis at FEE, CTU Prague. It is still in active development and breaking changes may be introduced.
 
 ## Included benchmarks
 
@@ -29,8 +29,8 @@ All currently supported benchmarks are listed in the table below. Further detail
 | [GSM8K EN](benchmarks/gsm8k_en)                   | EN (Original)          | Mathematical inference     | EM Acc                     | 1319                |
 | [Klokánek](benchmarks/klokanek)                   | CS (Original)          | Math/Logical Inference     | Acc                        | 808                 |
 | [Mall Reviews](benchmarks/mall_reviews)           | CS (Original)          | Sentiment Analysis         | Acc, Macro F1              | 3000                |
-| [MMLU](benchmarks/mmlu)                           | CS (Translated)        | Knowledge-Based QA         | Acc                        | 12505               |
-| [MMLU EN](benchmarks/mmlu_en)                     | EN (Original)          | Knowledge-Based QA         | Acc                        | 12505               |
+| [MMLU](benchmarks/mmlu)                           | CS (Translated)        | Knowledge-Based QA         | Acc                        | 12508               |
+| [MMLU EN](benchmarks/mmlu_en)                     | EN (Original)          | Knowledge-Based QA         | Acc                        | 12508               |
 | [SNLI](benchmarks/snli)                           | CS (Translated)        | Natural Language Inference | Acc, Macro F1              | 10000               |
 | [SNLI EN](benchmarks/snli_en)                     | EN (Original)          | Natural Language Inference | Acc, Macro F1              | 10000               |
 | [SQAD](benchmarks/sqad)                           | CS (Original)          | Reading Comprehension / QA | EM Acc, BoW F1             | 843                 |
