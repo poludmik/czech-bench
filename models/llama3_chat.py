@@ -4,7 +4,7 @@ from langchain_core.language_models import BaseChatModel
 from langchain_core.messages import AIMessage, BaseMessage
 from langchain_core.outputs import ChatGeneration, ChatResult
 from langchain_core.callbacks.manager import CallbackManagerForLLMRun
-from transformers import pipeline
+from transformers import pipeline, QuantoConfig
 import torch
 
 
@@ -24,6 +24,10 @@ class CustomChatLlama3(BaseChatModel):
                 kwargs["torch_dtype"] = torch.float32
             elif precision == "auto":
                 kwargs["torch_dtype"] = 'auto'
+            elif precision == "fp8":
+                kwargs["quantization_config"] = QuantoConfig(weights="float8")
+            elif precision in ["int8", "int4", "int2"]:
+                kwargs["quantization_config"] = QuantoConfig(weights=precision)
             else:
                 print(f"Unknown precision '{precision}', setting to 'auto'")
                 kwargs["torch_dtype"] = 'auto'
