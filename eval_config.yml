@@ -10,13 +10,7 @@ model_name: chat_openai
 #model_parameters: {model_id: gpt-3.5-turbo-0125}  # chat_openai
 #model_parameters: {model_id: gpt-4-0125-preview}  # chat_openai
 #model_parameters: {model_id: claude-3-sonnet-20240229}  # chat_anthropic
-#model_parameters: {model_id: llama2, url: http://amd-02:11434, temperature: 0.}  # ollama_raw
-#model_parameters: {model_id: google/flan-t5-xl}  # seq2seq_hf
-#model_parameters: {model_id: CohereForAI/aya-101, precision: fp16}  # seq2seq_hf
-#model_parameters: {model_id: bigscience/mt0-xxl-mt, precision: fp16}  # seq2seq_hf
-#model_parameters: {model_id: bigscience/bloomz-7b1-mt}  # causal_hf
-#model_parameters: {model_id: MBZUAI/bactrian-x-llama-7b-merged}  # causal_hf
-#model_parameters: {model_id: MBZUAI/bactrian-x-llama-13b-merged}  # causal_hf
+#model_parameters: {model_id: google/flan-t5-xxl, precision: fp16} # auto_hf
 
 
 # Benchmark selection:
