@@ -26,7 +26,7 @@ Supported parameters:
 - [auto_hf](auto_hf.py) - An integration of the [pipeline](https://huggingface.co/docs/transformers/main_classes/pipelines) abstractor from the Transformers library. Can automatically pull the selected model from Hugging Face. Only models compatible with the AutoModelForCausalLM and AutoModelForSeq2SeqLM classes are recommended.  
 Supported parameters:  
     - `model_id` - Hugging Face ID of the selected model, or local path
-    - `task` - specifies the pipeline's task. It is usually inferred automatically from the loaded model. Defaults to None.
+    - `causal` - required to properly set the output format for causal decoder-only models. Set to False when loading an encoder-decoder based model, such as the T5. Defaults to True.
     - `do_sample` - enables output sampling instead of greedy decoding, defaults to False
     - `max_new_tokens` - maximum number of tokens to generate, defaults to 512
     - `precision` - determines the torch_dtype parameter of the model. Use 'fp16' for `torch.float16`, 'bf16' for `torch.bfloat16`, 'fp32' for `torch.float32`, or 'auto' for automatic selection based on model parameters. Additional data types are now supported via the Quanto library: 'fp8', 'int8', 'int4', and 'int2'. Defaults to 'auto'.

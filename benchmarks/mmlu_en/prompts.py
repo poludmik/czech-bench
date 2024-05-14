@@ -13,7 +13,7 @@ Do not repeat the chosen answer. Always answer only with the digit corresponding
 
 """
 
-few_shot = """Here are 5 example questions:
+few_shot = """Here are some example questions:
 
 {shots}
 """

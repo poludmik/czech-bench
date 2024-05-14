@@ -3,7 +3,7 @@ from transformers import pipeline, QuantoConfig
 import torch
 
 
-def get_llm(model_id="google/flan-t5-xl", task=None, do_sample=False, max_new_tokens=512, precision="auto", device_map="auto", **kwargs):
+def get_llm(model_id="google/flan-t5-xl", causal=True, do_sample=False, max_new_tokens=512, precision="auto", device_map="auto", **kwargs):
 
     if precision is not None:
         if precision == "fp16":
@@ -23,10 +23,11 @@ def get_llm(model_id="google/flan-t5-xl", task=None, do_sample=False, max_new_to
             kwargs["torch_dtype"] = 'auto'
     kwargs['do_sample'] = do_sample
 
-    if task is None:
-        pipe = pipeline(model=model_id, device_map=device_map, max_new_tokens=max_new_tokens, model_kwargs=kwargs)
-    else:
-        pipe = pipeline(task, model=model_id, device_map=device_map, max_new_tokens=max_new_tokens, model_kwargs=kwargs)
+    pipe_kwargs = {}
+    if causal:
+        pipe_kwargs['return_full_text'] = False
+
+    pipe = pipeline(model=model_id, device_map=device_map, max_new_tokens=max_new_tokens, model_kwargs=kwargs, **pipe_kwargs)
 
     hf = HuggingFacePipeline(pipeline=pipe)
     print(f"Model loaded on {pipe.model.device}")
