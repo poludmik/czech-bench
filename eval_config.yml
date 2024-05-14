@@ -7,10 +7,12 @@
 model_name: chat_openai
 
 # Dictionary with optional parameters to be passed to the get_llm function. Can be ommited.
+#   To speed up the evaluation process, you can set the max_new_tokens parameter to 1 for most benchmarks (excluding SQAD, SQuAD, and GSM8K)
+
 #model_parameters: {model_id: gpt-3.5-turbo-0125}  # chat_openai
 #model_parameters: {model_id: gpt-4-0125-preview}  # chat_openai
 #model_parameters: {model_id: claude-3-sonnet-20240229}  # chat_anthropic
-#model_parameters: {model_id: google/flan-t5-xxl, precision: fp16} # auto_hf
+#model_parameters: {model_id: google/flan-t5-xxl, precision: fp16, causal: False, max_new_tokens: 1} # auto_hf
 
 
 # Benchmark selection:

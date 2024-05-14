@@ -13,7 +13,7 @@ Zvolenou odpověď neopakuj. Vždy odpovídej pouze číslem odpovídajícím vy
 
 """
 
-few_shot = """Zde je pět ukázkových příkladů:
+few_shot = """Zde je několik ukázkových příkladů:
 
 {shots}
 """

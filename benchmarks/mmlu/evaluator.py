@@ -54,9 +54,13 @@ class Evaluator:
             for topic in topics[category]:
                 dev_set = self.dataset['dev'].filter(lambda example: example['subject'] == topic)
                 test_set = self.dataset['test'].filter(lambda example: example['subject'] == topic)
+                shot_num = 5
+
+                if topic in ["high_school_european_history", "high_school_us_history", " high_school_world_history", "security_studies"]:
+                    shot_num = 1
 
                 shots = ""
-                for i in range(5):
+                for i in range(shot_num):
                     shots += f"Otázka:\n{dev_set[i]['question']}\nMožnosti:\n"
                     for j in range(4):
                         shots += f"{j+1}) {dev_set[i]['choices'][j]}\n"
@@ -104,7 +108,7 @@ class Evaluator:
                     cum_time += end_time - start_time
 
                 acc = float("nan")
-                if correct > 0:
+                if topic_count > 0:
                     acc = correct / topic_count
                     cat_accuracies.append(acc)
                     all_accuracies.append(acc)
