@@ -114,7 +114,7 @@ class Evaluator:
                     acc = correct / topic_count
                     cat_accuracies.append(acc)
                     all_accuracies.append(acc)
-                result = f"{topic} average accuracy: {acc*100:.2f}"
+                result = f"{topic} accuracy: {acc*100:.2f}"
                 with open(result_file, "a") as rf:
                     rf.write(result + "\n")
                 print("\n" + result)
