@@ -154,7 +154,7 @@ focusing on natural language inference. We can even notice the Czech variants re
 enough to render the language disparities insignificant. It is also possible that the automatic translations preserve the entailment relations between premises and hypotheses
 well enough to not affect the performance.
 
-![GPT-3.5 Turbo cross-lingual performance comparison](./figures/gpt-cs-en-title.png)
+![GPT-3.5 Turbo cross-lingual performance comparison](./figures/gpt-cs-en-title.png){width=50%}
 
 ![Claude 3 Haiku Turbo cross-lingual performance comparison](./figures/haiku-cs-en-title.png)
 
