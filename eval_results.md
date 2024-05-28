@@ -137,7 +137,7 @@ With proper fine-tuning, it even has the potential to outperform its arguably mo
 costly alternatives in the remaining Czech tasks. However, there is significant room for
 improvement in the factuality scores it achieved in both languages.
 
-![Performance comparison of selected LLMs on Czech benchmarks](./figures/graph-best.png)
+![Performance comparison of selected LLMs on Czech benchmarks](./figures/graph-best.png){width=80%}
 
 ## Cross-lingual performance comparisons
 
@@ -156,9 +156,9 @@ well enough to not affect the performance.
 
 ![GPT-3.5 Turbo cross-lingual performance comparison](./figures/gpt-cs-en-title.png){width=50%}
 
-![Claude 3 Haiku Turbo cross-lingual performance comparison](./figures/haiku-cs-en-title.png)
+![Claude 3 Haiku Turbo cross-lingual performance comparison](./figures/haiku-cs-en-title.png){width=50%}
 
-![Llama 3 8B Instruct Turbo cross-lingual performance comparison](./figures/llama-cs-en-title.png)
+![Llama 3 8B Instruct Turbo cross-lingual performance comparison](./figures/llama-cs-en-title.png){width=50%}
 
 ## Czech grammar competence of commercial models
 
@@ -170,7 +170,7 @@ surprising disparity between the performance achieved by Claude 3 Haiku and Clau
 3 Sonnet. While Sonnet charges more than 10 times the price of its cheaper alternative,
 it fails to deliver superior performance. This phenomenon is further investigated in the following section.
 
-![Performance comparison of commercial LLMs on the AGREE benchmark](./figures/agree.png)
+![Performance comparison of commercial LLMs on the AGREE benchmark](./figures/agree.png){width=50%}
 
 ## Claude 3 Haiku vs Sonnet
 
@@ -180,7 +180,7 @@ competence. Overall, it is clear that in the Czech language, Sonnet does not off
 substantial performance gains that would justify its higher price compared to its cheaper
 counterpart.
 
-![Performance comparison between Claude 3 Haiku and Claude 3 Sonnet](./figures/haiku-sonnet.png)
+![Performance comparison between Claude 3 Haiku and Claude 3 Sonnet](./figures/haiku-sonnet.png){width=50%}
 
 
 
