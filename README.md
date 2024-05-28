@@ -73,39 +73,15 @@ Then run the evaluation:
 
 Batch inference is currently not supported, so all evaluation examples are processed sequentially. Any help with introducing batch inference, or possibly even porting the included datasets into the [LM Evaluation Harness](https://github.com/EleutherAI/lm-evaluation-harness) framework would be greatly appreciated.
 
-## Interim results
+## Evaluation results
 
-The table below provides a performance comparison of two popular commercial models, OpenAI's GPT-3.5 Turbo (version 0125) and Anthropic's Claude 3 Haiku (version 20240307). Evaluation of available multilingual open-source models is currently underway. Details about individual datasets and reported metrics can be found in each benchmark's respective README.
+Please see the dedicated [eval_results.md](eval_results.md) for a comprehensive evaluation report and result interpretations.
 
-| Dataset           | Metrics                        | GPT 3.5 turbo              | Claude 3 Haiku             |
-| ----------------- | ------------------------------ | -------------------------: | -------------------------: |
-| AGREE             | Acc                            | 46.7                       | 65.7                       |
-| ANLI              | Acc, Macro F1                  | 44.67, 41.93               | 51.50, 50.75               |
-| ANLI EN           | Acc, Macro F1                  | 44.25, 40.58               | 55.34, 54.16               |
-| ARC Challenge     | Acc                            | 73.1                       | 76.8                       |
-| ARC Challenge EN  | Acc                            | 82.9                       | 77.6                       |
-| ARC Easy          | Acc                            | 85.8                       | 85.3                       |
-| ARC Easy EN       | Acc                            | 93.1                       | 89.1                       |
-| Belebele          | Acc                            | 80.3                       | 88.2                       |
-| Belebele EN       | Acc                            | 87.0                       | 91.0                       |
-| CTKFacts          | Acc, Macro F1                  | 61.83, 47.71               | 69.57, 62.03               |
-| CTKFacts EN       | Acc, Macro F1                  | 67.56, 63.23               | 68.06, 62.22               |
-| Czech News        | Acc, Macro F1                  | 78.9, 78.45                | 81.3, 81.31                |
-| Facebook Comments | Acc, Macro F1                  | 71.50, 69.02               | 75.8, 74.09                |
-| GSM8K             | EM Acc                         | 64.2                       | 78.6                       |
-| GSM8K EN          | EM Acc                         | 83.1                       | 89.0                       |
-| Klokánek          | Acc                            | 29.3                       | 24.5                       |
-| Mall Reviews      | Acc, Macro F1                  | 59.76, 55.42               | 57.67, 55.23               |
-| MMLU              | Acc                            | 58.0                       | 67.3                       |
-| MMLU EN           | Acc                            | 64.9                       | 73.0                       |
-| SNLI              | Acc, Macro F1                  | 61.8, 51.49                | 71.66, 70.48               |
-| SNLI EN           | Acc, Macro F1                  | 60.57, 43.32               | 72.74, 53.78               |
-| SQAD              | EM Acc, BoW F1                 | 66.19, 83.47               | 59.79, 76.25               |
-| SQuAD             | EM Acc, BoW F1, No-Ans Acc, F1 | 37.30, 42.98, 52.42, 44.21 | 36.25, 44.67, 60.27, 56.38 |
-| Subjectivity      | Acc, Macro F1                  | 80.15, 80.15               | 81.5, 81.21                |
-| Subjectivity EN   | Acc, Macro F1                  | 86.8, 86.79                | 86.6, 86.59                |
-| TruthfulQA        | Acc                            | 53.5                       | 65.8                       |
-| TruthfulQA EN     | Acc                            | 58.5                       | 70.8                       |
+### TL;DR: 
+
+Claude 3 Haiku outperforms GPT-3.5 Turbo in the majority of Czech benchmarks while being offered at a significantly lower price. This makes it a clear choice for potential adopters of entry-level commercial LLM APIs. Claude 3 Sonnet, on the other hand, fails to deliver any convincing performance gains over its cheaper variant and is thus not recommended considering its substantially higher price. GPT-4o is a solid mid-tier offering, beating its more expensive predecessor, the GPT-4 Turbo. Claude 3 Opus offers the highest grammatical competence in the Czech language for a significant price premium.
+
+Llama 3 8B Instruct achieves a decisive victory among all evaluated open-source models, matching the performance of entry-level commercial offerings on several occasions. It is an excellent candidate for further fine-tuning efforts and for potential open-source LLM adopters. The larger Llama 3 70B model has not yet been evaluated.
 
 ## References
 

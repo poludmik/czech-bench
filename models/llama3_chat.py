@@ -71,7 +71,6 @@ class CustomChatLlama3(BaseChatModel):
 
         outputs = self.pipeline(
             prompt,
-            max_new_tokens=256,
             eos_token_id=terminators,
             do_sample=self.dosample,
         )
