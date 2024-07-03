@@ -4,7 +4,7 @@ Czech-Bench is a collection of LLM benchmarks available for the Czech language. 
 
 Supported models include OpenAI's and Anthropic's chat APIs, models compatible with the `AutoModelForCausalLM` and `AutoModelForSeq2SeqLM` classes of the Transformers library, and all models supported by the [Ollama](https://github.com/ollama/ollama) runtime.
 
-This repository is being created as part of my master's thesis at FEE, CTU Prague. It is still in active development and breaking changes may be introduced.
+This repository was created as part of my [master's thesis](https://dspace.cvut.cz/handle/10467/115227) at FEE, CTU Prague.
 
 ## Included benchmarks
 
