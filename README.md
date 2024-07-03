@@ -123,3 +123,5 @@ Lin et al., [TruthfulQA: Measuring How Models Mimic Human Falsehoods](https://ar
 Straková et al., [Open-Source Tools for Morphology, Lemmatization, POS Tagging and Named Entity Recognition](https://aclanthology.org/P14-5003), 2014
 
 Vidra et al., [DeriNet 2.0: Towards an All-in-One Word-Formation Resource](https://aclanthology.org/W19-8510), 2019
+
+Jirkovský, [Benchmarking Techniques for Evaluation of Large Language Models](https://dspace.cvut.cz/handle/10467/115227), 2024
