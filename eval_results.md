@@ -1,6 +1,6 @@
 # Czech-Bench evaluation results
 
-This file presents the results obtained when evaluating selected LLMs using Czech-Bench. The included tables and figures, as well as the written commentaries are adopted from my recently submitted [master's thesis](#References).
+This file presents the results obtained when evaluating selected LLMs using Czech-Bench. The included tables and figures, as well as the written commentaries are adopted from my recently submitted [master's thesis](#references).
 
 ## GPT-3.5 Turbo vs Claude 3 Haiku
 
@@ -186,4 +186,4 @@ counterpart.
 
 ## References
 
-[1] Jirkovský, Benchmarking Techniques for Evaluation of Large Language Models, 2024
+[1] Jirkovský, [Benchmarking Techniques for Evaluation of Large Language Models](https://dspace.cvut.cz/handle/10467/115227), 2024
