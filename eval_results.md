@@ -1,6 +1,6 @@
 # Czech-Bench evaluation results
 
-This file presents the results obtained when evaluating selected LLMs using Czech-Bench. The included tables and figures, as well as the written commentaries are adopted from my recently submitted master's thesis, which will be linked below upon its publication.
+This file presents the results obtained when evaluating selected LLMs using Czech-Bench. The included tables and figures, as well as the written commentaries are adopted from my recently submitted [master's thesis](#References).
 
 ## GPT-3.5 Turbo vs Claude 3 Haiku
 
