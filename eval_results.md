@@ -63,7 +63,7 @@ into their Czech applications.
 ## Multilingual open-source models
 
 The following table presents the results achieved by 5 selected multilingual open-source LLMs. All the evaluated models were loaded directly from Hugging Face, using 16-bit floating
-point precision. The evaluations were performed using a single single
+point precision. The evaluations were performed using a single
 Nvidia A40 (45GB VRAM) or Nvidia A100 (40GB VRAM), depending on availability.
 
 It is clear that Llama 3 achieves
