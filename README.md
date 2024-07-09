@@ -71,7 +71,7 @@ Then run the evaluation:
 
 ### Limitations: 
 
-Batch inference is currently not supported, so all evaluation examples are processed sequentially. Any help with introducing batch inference, or possibly even porting the included datasets into the [LM Evaluation Harness](https://github.com/EleutherAI/lm-evaluation-harness) framework would be greatly appreciated.
+Batch inference is currently not supported, so all evaluation examples are processed sequentially. A team effort at integrating Czech-Bench into the [LM Evaluation Harness](https://github.com/EleutherAI/lm-evaluation-harness) framework is currently underway, aiming to levarage its advanced feature set. 
 
 ## Evaluation results
 
