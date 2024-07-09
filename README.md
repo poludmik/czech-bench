@@ -75,7 +75,7 @@ Batch inference is currently not supported, so all evaluation examples are proce
 
 ## Evaluation results
 
-Please see the dedicated [eval_results.md](eval_results.md) for a comprehensive evaluation report and result interpretations.
+Please see the dedicated [eval_results.md](eval_results.md) file for a comprehensive evaluation report and result interpretations.
 
 ### TL;DR: 
 
