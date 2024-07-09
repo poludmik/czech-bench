@@ -69,7 +69,7 @@ Nvidia A40 (45GB VRAM) or Nvidia A100 (40GB VRAM), depending on availability.
 It is clear that Llama 3 achieves
 supreme performance in the majority of benchmarks, while the remaining models occasionally outperform it in singleton tasks. All the open-source models, however, occasionally struggled to generate output in the pre-defined format, leading to parsing errors.
 These formats were specified in the evaluation prompts and demonstrated through the
-few-shot examples identically for all models, including the commercial ones. Some models have, however, proven to be more capable of adhering to these guidelines better than
+few-shot examples identically for all models, including the commercial ones. Some models have, however, proven to be more capable of adhering to these guidelines than
 others. If more than 20% of all answers in a test could not be correctly parsed, the
 resulting score was marked with the “∗” symbol, while tests with more than 50% of
 unparsable answers were considered invalid and marked with the “-” symbol.
