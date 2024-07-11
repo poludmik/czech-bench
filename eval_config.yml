@@ -19,8 +19,8 @@ model_name: chat_openai
 benchmarks:
 # Czech Benchmarks:
 - name: agree
-  use: false
-  local: true  # true: load from local files, false: load from Hugging Face cloud or cache (if possible)
+  use: false   # if set to false, this benchmark will be skipped during the evaluation run
+  local: true  # true: load from local files (inside benchmarks/agree/data), false: load from Hugging Face cloud or cache (if possible)
 
 - name: anli
   use: false
