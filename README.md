@@ -46,7 +46,7 @@ All currently supported benchmarks are listed in the table below. Further detail
 
  - Python >= 3.10
 
- - git-lfs
+ - [git-lfs](https://git-lfs.com/)
 
 ### Setup:
 
