@@ -4,7 +4,7 @@
 
 # Name of the model to be evaluated, corresponding to the name of the python file inside models/ containing model definition (without extension)
 # Available options: chat_openai, chat_anthropic, ollama_raw, seq2seq_hf, causal_hf
-model_name: chat_openai
+model_name: gemma2_it
 
 # Dictionary with optional parameters to be passed to the get_llm function. Can be ommited.
 #   To speed up the evaluation process, you can set the max_new_tokens parameter to 1 for most benchmarks (excluding SQAD, SQuAD, and GSM8K)
@@ -13,7 +13,7 @@ model_name: chat_openai
 #model_parameters: {model_id: gpt-4-0125-preview}  # chat_openai
 #model_parameters: {model_id: claude-3-sonnet-20240229}  # chat_anthropic
 #model_parameters: {model_id: google/flan-t5-xxl, precision: fp16, causal: False, max_new_tokens: 1} # auto_hf
-
+model_parameters: {device_map: auto, max_new_tokens: 1} # gemma2_it
 
 # Benchmark selection:
 benchmarks:
@@ -39,7 +39,7 @@ benchmarks:
   local: true
 
 - name: ctkfacts
-  use: false
+  use: true
   local: true
 
 - name: czech_news
