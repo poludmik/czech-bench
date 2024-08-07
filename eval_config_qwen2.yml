@@ -1,0 +1,131 @@
+
+## Evaluation settings ##
+#########################
+
+# Name of the model to be evaluated, corresponding to the name of the python file inside models/ containing model definition (without extension)
+# Available options: chat_openai, chat_anthropic, ollama_raw, seq2seq_hf, causal_hf
+model_name: qwen_2
+
+# Dictionary with optional parameters to be passed to the get_llm function. Can be ommited.
+#   To speed up the evaluation process, you can set the max_new_tokens parameter to 1 for most benchmarks (excluding SQAD, SQuAD, and GSM8K)
+
+#model_parameters: {model_id: gpt-3.5-turbo-0125}  # chat_openai
+#model_parameters: {model_id: gpt-4-0125-preview}  # chat_openai
+#model_parameters: {model_id: claude-3-sonnet-20240229}  # chat_anthropic
+#model_parameters: {model_id: google/flan-t5-xxl, precision: fp16, causal: False, max_new_tokens: 1} # auto_hf
+model_parameters: {device_map: cpu, max_new_tokens: 1} # gemma2_it
+
+# Benchmark selection:
+benchmarks:
+# Czech Benchmarks:
+- name: agree
+  use: false   # if set to false, this benchmark will be skipped during the evaluation run
+  local: true  # true: load from local files (inside benchmarks/agree/data), false: load from Hugging Face cloud or cache (if possible)
+
+- name: anli
+  use: false
+  local: true
+
+- name: arc_challenge
+  use: false
+  local: true
+
+- name: arc_easy
+  use: false
+  local: true
+
+- name: belebele
+  use: false
+  local: true
+
+- name: ctkfacts
+  use: true
+  local: true
+
+- name: czech_news
+  use: false
+  local: true
+
+- name: facebook_comments
+  use: false
+  local: true
+
+- name: gsm8k
+  use: false
+  local: true
+
+- name: klokanek
+  use: false
+  local: true
+
+- name: mall_reviews
+  use: false
+  local: true
+
+- name: mmlu
+  use: false
+  local: true
+
+- name: snli
+  use: false
+  local: true
+
+- name: sqad
+  use: false
+  local: true
+
+- name: squad
+  use: false
+  local: true
+
+- name: subjectivity
+  use: false
+  local: true
+
+- name: truthfulqa
+  use: false
+  local: true
+
+# English Benchmarks:
+- name: anli_en
+  use: false
+  local: true
+
+- name: arc_challenge_en
+  use: false
+  local: true
+
+- name: arc_easy_en
+  use: false
+  local: true
+
+- name: belebele_en
+  use: false
+  local: true
+
+- name: ctkfacts_en
+  use: false
+  local: true
+
+- name: gsm8k_en
+  use: false
+  local: true
+
+- name: mmlu_en
+  use: false
+  local: true
+
+- name: snli_en
+  use: false
+  local: true
+
+- name: subjectivity_en
+  use: false
+  local: true
+
+- name: truthfulqa_en
+  use: false
+  local: true
+
+# Limit the number of used examples for each benchmark or subtask (debugging purposes)
+stop_idx: null  # Set to null for no limit
